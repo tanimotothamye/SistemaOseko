@@ -41,10 +41,10 @@ Contributor(s):
 -->
 <hibernate-reverse-engineering>
   <schema-selection match-catalog="db_tatiana_oseko"/>
-  <table-filter match-name="compras_produtos_tto"/>
-  <table-filter match-name="produtos_tto"/>
-  <table-filter match-name="funcionarios_tto"/>
-  <table-filter match-name="usuarios_tto"/>
   <table-filter match-name="compras_tto"/>
+  <table-filter match-name="compras_produtos_tto"/>
+  <table-filter match-name="usuarios_tto"/>
+  <table-filter match-name="funcionarios_tto"/>
   <table-filter match-name="fornecedores_tto"/>
+  <table-filter match-name="produtos_tto"/>
 </hibernate-reverse-engineering>

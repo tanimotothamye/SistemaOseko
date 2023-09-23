@@ -1,5 +1,5 @@
 package bean;
-// Generated Sep 16, 2023 5:55:13 PM by Hibernate Tools 4.3.1
+// Generated Sep 22, 2023 8:43:48 PM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -124,10 +124,7 @@ public class UsuariosTto  implements java.io.Serializable {
     public void setAtivoTto(String ativoTto) {
         this.ativoTto = ativoTto;
     }
+    }
 
-
-
-
-}
 
 

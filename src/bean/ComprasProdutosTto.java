@@ -1,6 +1,5 @@
 package bean;
-// Generated Sep 16, 2023 5:55:13 PM by Hibernate Tools 4.3.1
-
+// Generated Sep 22, 2023 8:43:48 PM by Hibernate Tools 4.3.1
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,12 +23,12 @@ public class ComprasProdutosTto  implements java.io.Serializable {
      private ComprasTto comprasTto;
      private ProdutosTto produtosTto;
      private String quantidadeTto;
-     private Double valorUnitarioTto;
+     private double valorUnitarioTto;
 
     public ComprasProdutosTto() {
     }
 
-    public ComprasProdutosTto(int idcomprasProdutosTto, ComprasTto comprasTto, ProdutosTto produtosTto, String quantidadeTto, Double valorUnitarioTto) {
+    public ComprasProdutosTto(int idcomprasProdutosTto, ComprasTto comprasTto, ProdutosTto produtosTto, String quantidadeTto, double valorUnitarioTto) {
        this.idcomprasProdutosTto = idcomprasProdutosTto;
        this.comprasTto = comprasTto;
        this.produtosTto = produtosTto;
@@ -81,11 +80,11 @@ public class ComprasProdutosTto  implements java.io.Serializable {
 
     
     @Column(name="valorUnitario_tto", nullable=false, precision=10)
-    public Double getValorUnitarioTto() {
+    public double getValorUnitarioTto() {
         return this.valorUnitarioTto;
     }
     
-    public void setValorUnitarioTto(Double valorUnitarioTto) {
+    public void setValorUnitarioTto(double valorUnitarioTto) {
         this.valorUnitarioTto = valorUnitarioTto;
     }
 

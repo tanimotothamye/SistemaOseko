@@ -1,15 +1,10 @@
 package bean;
-// Generated Sep 16, 2023 5:55:13 PM by Hibernate Tools 4.3.1
-
+// Generated Sep 22, 2023 8:43:48 PM by Hibernate Tools 4.3.1
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -37,16 +32,15 @@ public class FuncionariosTto  implements java.io.Serializable {
      private String paisTto;
      private String cepTto;
      private String enderecoTto;
-     private String sexoTto;
+     private int sexoTto;
      private String ativoTto;
      private String carteiratrabalhoTto;
-     private Set comprasTtos = new HashSet(0);
 
     public FuncionariosTto() {
     }
 
 	
-    public FuncionariosTto(int idfuncionariosTto, String nomeTto, String cpfTto, String emailTto, String telefoneTto, Date dataNascimentoTto, String celularTto, String bairroTto, String cidadeTto, String paisTto, String cepTto, String enderecoTto, String sexoTto, String ativoTto, String carteiratrabalhoTto) {
+    public FuncionariosTto(int idfuncionariosTto, String nomeTto, String cpfTto, String emailTto, String telefoneTto, Date dataNascimentoTto, String celularTto, String bairroTto, String cidadeTto, String paisTto, String cepTto, String enderecoTto, int sexoTto, String ativoTto, String carteiratrabalhoTto) {
         this.idfuncionariosTto = idfuncionariosTto;
         this.nomeTto = nomeTto;
         this.cpfTto = cpfTto;
@@ -63,26 +57,7 @@ public class FuncionariosTto  implements java.io.Serializable {
         this.ativoTto = ativoTto;
         this.carteiratrabalhoTto = carteiratrabalhoTto;
     }
-    public FuncionariosTto(int idfuncionariosTto, String nomeTto, String cpfTto, String emailTto, String telefoneTto, String emailReservaTto, Date dataNascimentoTto, String celularTto, String bairroTto, String cidadeTto, String paisTto, String cepTto, String enderecoTto, String sexoTto, String ativoTto, String carteiratrabalhoTto, Set comprasTtos) {
-       this.idfuncionariosTto = idfuncionariosTto;
-       this.nomeTto = nomeTto;
-       this.cpfTto = cpfTto;
-       this.emailTto = emailTto;
-       this.telefoneTto = telefoneTto;
-       this.emailReservaTto = emailReservaTto;
-       this.dataNascimentoTto = dataNascimentoTto;
-       this.celularTto = celularTto;
-       this.bairroTto = bairroTto;
-       this.cidadeTto = cidadeTto;
-       this.paisTto = paisTto;
-       this.cepTto = cepTto;
-       this.enderecoTto = enderecoTto;
-       this.sexoTto = sexoTto;
-       this.ativoTto = ativoTto;
-       this.carteiratrabalhoTto = carteiratrabalhoTto;
-       this.comprasTtos = comprasTtos;
-    }
-   
+
      @Id 
 
     
@@ -217,11 +192,11 @@ public class FuncionariosTto  implements java.io.Serializable {
 
     
     @Column(name="sexo_tto", nullable=false, length=1)
-    public String getSexoTto() {
+    public int getSexoTto() {
         return this.sexoTto;
     }
     
-    public void setSexoTto(String sexoTto) {
+    public void setSexoTto(int sexoTto) {
         this.sexoTto = sexoTto;
     }
 
@@ -244,19 +219,6 @@ public class FuncionariosTto  implements java.io.Serializable {
     public void setCarteiratrabalhoTto(String carteiratrabalhoTto) {
         this.carteiratrabalhoTto = carteiratrabalhoTto;
     }
-
-@OneToMany(fetch=FetchType.LAZY, mappedBy="funcionariosTto")
-    public Set getComprasTtos() {
-        return this.comprasTtos;
-    }
-    
-    public void setComprasTtos(Set comprasTtos) {
-        this.comprasTtos = comprasTtos;
-    }
-
-
-
-
 }
 
 

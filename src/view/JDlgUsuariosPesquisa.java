@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  *
- * @author u49558987859
+ * @author tate
  */
 public class JDlgUsuariosPesquisa extends javax.swing.JDialog {
 

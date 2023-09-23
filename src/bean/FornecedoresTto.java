@@ -1,14 +1,9 @@
 package bean;
-// Generated Sep 16, 2023 5:55:13 PM by Hibernate Tools 4.3.1
+// Generated Sep 22, 2023 8:43:48 PM by Hibernate Tools 4.3.1
 
-
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -27,7 +22,6 @@ public class FornecedoresTto  implements java.io.Serializable {
      private String telefoneTto;
      private String cnpjTto;
      private String enderecoCompletoTto;
-     private Set comprasTtos = new HashSet(0);
 
     public FornecedoresTto() {
     }
@@ -40,15 +34,6 @@ public class FornecedoresTto  implements java.io.Serializable {
         this.telefoneTto = telefoneTto;
         this.cnpjTto = cnpjTto;
         this.enderecoCompletoTto = enderecoCompletoTto;
-    }
-    public FornecedoresTto(int idfornecedoresTto, String nomeTto, String emailTto, String telefoneTto, String cnpjTto, String enderecoCompletoTto, Set comprasTtos) {
-       this.idfornecedoresTto = idfornecedoresTto;
-       this.nomeTto = nomeTto;
-       this.emailTto = emailTto;
-       this.telefoneTto = telefoneTto;
-       this.cnpjTto = cnpjTto;
-       this.enderecoCompletoTto = enderecoCompletoTto;
-       this.comprasTtos = comprasTtos;
     }
    
      @Id 
@@ -112,19 +97,6 @@ public class FornecedoresTto  implements java.io.Serializable {
     public void setEnderecoCompletoTto(String enderecoCompletoTto) {
         this.enderecoCompletoTto = enderecoCompletoTto;
     }
-
-@OneToMany(fetch=FetchType.LAZY, mappedBy="fornecedoresTto")
-    public Set getComprasTtos() {
-        return this.comprasTtos;
-    }
-    
-    public void setComprasTtos(Set comprasTtos) {
-        this.comprasTtos = comprasTtos;
-    }
-
-
-
-
 }
 
 

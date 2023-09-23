@@ -5,11 +5,14 @@
  */
 package view;
 
+import bean.FuncionariosTto;
+import dao.Funcionarios_DAO;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
+import tools.Util;
 
 /**
  *
@@ -17,14 +20,17 @@ import javax.swing.text.MaskFormatter;
  */
 public class JDlgFuncionariosNovoIA extends javax.swing.JDialog {
 
+    FuncionariosTto funcionarios;
+    Funcionarios_DAO funcionarios_DAO;
     MaskFormatter mascaraCPF, mascaraDataNascimento, mascaraCelular, mascaraTelefone, mascaraCep, mascaraCarteiraTrabalho;
 
     /**
      * Creates new form JDlgFuncionarios
      */
     public JDlgFuncionariosNovoIA(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
         initComponents();
+        setTitle("Inclusão de Funcionários");
+        setLocationRelativeTo(null);
 
         setTitle("Cadastro de Funcionários");
         setLocationRelativeTo(null);
@@ -44,6 +50,59 @@ public class JDlgFuncionariosNovoIA extends javax.swing.JDialog {
         celular_tto.setFormatterFactory(new DefaultFormatterFactory(mascaraCelular));
         cep_tto.setFormatterFactory(new DefaultFormatterFactory(mascaraCep));
         telefone_tto.setFormatterFactory(new DefaultFormatterFactory(mascaraTelefone));
+    }
+
+    public FuncionariosTto viewBean() {
+
+        /*novo jeito de converter. Apartir do Util*/
+        funcionarios.setIdfuncionariosTto(Util.strInt(idfuncionarios_tto.getText()));
+        funcionarios.setNomeTto(nome_tto.getText());
+        funcionarios.setCpfTto(cpf_tto.getText());
+        funcionarios.setEmailTto(email_tto.getText());
+        funcionarios.setTelefoneTto(telefone_tto.getText());
+        funcionarios.setEmailReservaTto(emailReserva_tto.getText());
+        funcionarios.setDataNascimentoTto(Util.strDate(dataNascimento_tto.getText()));
+        funcionarios.setCelularTto(celular_tto.getText());
+        funcionarios.setBairroTto(bairro_tto.getText());
+        funcionarios.setCidadeTto(cidade_tto.getText());
+        funcionarios.setPaisTto(pais_tto.getText());
+        funcionarios.setCepTto(cep_tto.getText());
+        funcionarios.setEnderecoTto(endereco_tto.getText());
+        funcionarios.setSexoTto(sexo_tto.getSelectedIndex());
+        if (ativo_tto.isSelected() == true) {
+            funcionarios.setAtivoTto("S");
+        } else {
+            funcionarios.setAtivoTto("N");
+        }
+
+        return funcionarios;
+
+    }
+
+    public void beanView(FuncionariosTto funcionarios) {
+        idfuncionarios_tto.setText(Util.intStr(funcionarios.getIdfuncionariosTto()));
+        nome_tto.setText(funcionarios.getNomeTto());
+        cpf_tto.setText(funcionarios.getCpfTto());
+        email_tto.setText(funcionarios.getEmailTto());
+        telefone_tto.setText(funcionarios.getTelefoneTto());
+        emailReserva_tto.setText(funcionarios.getEmailReservaTto());
+        nome_tto.setText(funcionarios.getNomeTto());
+        dataNascimento_tto.setText(Util.dateStr(funcionarios.getDataNascimentoTto()));
+        celular_tto.setText(funcionarios.getCelularTto());
+        bairro_tto.setText(funcionarios.getBairroTto());
+        cidade_tto.setText(funcionarios.getCidadeTto());
+        pais_tto.setText(funcionarios.getPaisTto());
+        cep_tto.setText(funcionarios.getCepTto());
+        endereco_tto.setText(funcionarios.getEnderecoTto());
+        nome_tto.setText(funcionarios.getNomeTto());
+        sexo_tto.setSelectedIndex(funcionarios.getSexoTto());
+        
+        if (funcionarios.getAtivoTto().equals("S") == true) {
+            ativo_tto.setSelected(true);
+        } else {
+            ativo_tto.setSelected(false);
+        }
+
     }
 
     /**
@@ -409,11 +468,15 @@ public class JDlgFuncionariosNovoIA extends javax.swing.JDialog {
 
     private void jBtnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnOkActionPerformed
         setVisible(false);
+        funcionarios = viewBean();
+        funcionarios_DAO.insert(funcionarios);
+        Util.mensagem("Adicionado com sucesso!");
         // TODO add your handling code here:
     }//GEN-LAST:event_jBtnOkActionPerformed
 
     private void jBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelarActionPerformed
         setVisible(false);
+        Util.mensagem("Cancelado!");
         // TODO add your handling code here:
     }//GEN-LAST:event_jBtnCancelarActionPerformed
 

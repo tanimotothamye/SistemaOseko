@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package view;
 
 import bean.FornecedoresTto;
@@ -17,8 +13,10 @@ import tools.Util;
 
 /**
  *
- * @author User
+ * @author tate
  */
+
+
 public class JDlgFornecedores extends javax.swing.JDialog {
 
     private boolean incluindo;
@@ -43,37 +41,28 @@ public class JDlgFornecedores extends javax.swing.JDialog {
         cnpj_tto.setFormatterFactory(new DefaultFormatterFactory(mascaraCnpj));
     }
 
-    /*
-    public Fornecedores viewBean(){
-        Fornecedores fornecedores = new Fornecedores();
-        int id = Integer.parseInt(jTxtCodigo.getText());
+    public FornecedoresTto viewBean() {
+        FornecedoresTto fornecedores = new FornecedoresTto();
+        int id = Integer.parseInt(idfornecedores_tto.getText());
         //transforma de string para inteiro
-        
-        fornecedores.setIdfornecedor(id);
-        fornecedores.setNome(jTxtNome.getText());
-        fornecedores.setCnpj(jFmtCnpj.getText());
-        fornecedores.setEmail(jTxtEmail.getText());
-        fornecedores.setEnderecocompleto(jTxtEndereco.getText());
-        fornecedores.setTelefone(jFmtTelefone.getText());
+
+        idfornecedores_tto.setText(Util.intStr(fornecedores.getIdfornecedoresTto()));
+        nome_tto.setText(fornecedores.getNomeTto());
+        email_tto.setText(fornecedores.getEnderecoCompletoTto());
+        telefone_tto.setText(fornecedores.getTelefoneTto());
+        cnpj_tto.setText(fornecedores.getCnpjTto());
         return fornecedores;
     }
-    
-    public void beanView(Fornecedores fornecedores){
-        String id = String.valueOf(fornecedores.getIdfornecedor());
-        //transforma de inteiro pra string
-        
-        jTxtCodigo.setText(id);
-        jTxtNome.setText(fornecedores.getNome());
-        jFmtCnpj.setText(fornecedores.getCnpj());
-        jTxtEmail.setText(fornecedores.getEmail());
-        jTxtEndereco.setText(fornecedores.getEnderecocompleto());
-        jFmtTelefone.setText(fornecedores.getTelefone());
-      
+
+    public void beanView(FornecedoresTto fornecedores) {
+        idfornecedores_tto.setText(Util.intStr(fornecedores.getIdfornecedoresTto()));
+        nome_tto.setText(fornecedores.getNomeTto());
+        email_tto.setText(fornecedores.getEmailTto());
+        enderecoCompleto_tto.setText(fornecedores.getEnderecoCompletoTto());
+        telefone_tto.setText(fornecedores.getTelefoneTto());
+        cnpj_tto.setText(fornecedores.getCnpjTto());
     }
 
-    
-    
-     */
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -296,60 +285,49 @@ public class JDlgFornecedores extends javax.swing.JDialog {
     }//GEN-LAST:event_enderecoCompleto_ttoActionPerformed
 
     private void jBtnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluirActionPerformed
-        // TODO add your handling code here:
-        Util.limparCampos(idfornecedores_tto, nome_tto, email_tto, enderecoCompleto_tto, telefone_tto, cnpj_tto,
-                jBtnIncluir, jBtnCancelar, jBtnExcluir, jBtnPesquisar, jBtnConfirmar, jBtnAlterar);
+        // TODO add your handling code here
+        incluindo = true;
+        Util.limparCampos(idfornecedores_tto, nome_tto, email_tto, enderecoCompleto_tto, telefone_tto, cnpj_tto, jBtnIncluir,
+                jBtnCancelar, jBtnExcluir, jBtnPesquisar, jBtnConfirmar, jBtnAlterar);
 
-        Util.habilitar(true, idfornecedores_tto, nome_tto, email_tto, enderecoCompleto_tto, telefone_tto, cnpj_tto,
-                jBtnIncluir, jBtnCancelar, jBtnExcluir, jBtnPesquisar, jBtnConfirmar, jBtnAlterar);
-
+        Util.habilitar(true, idfornecedores_tto, nome_tto, email_tto, enderecoCompleto_tto, telefone_tto, cnpj_tto, jBtnIncluir,
+                jBtnCancelar, jBtnExcluir, jBtnPesquisar, jBtnConfirmar, jBtnAlterar);
     }//GEN-LAST:event_jBtnIncluirActionPerformed
 
     private void jBtnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarActionPerformed
         // TODO add your handling code here:
-        Util.limparCampos(idfornecedores_tto, nome_tto, email_tto, enderecoCompleto_tto, telefone_tto, cnpj_tto,
-                jBtnIncluir, jBtnCancelar, jBtnExcluir, jBtnPesquisar, jBtnConfirmar, jBtnAlterar);
+        incluindo = false;
+        Util.limparCampos(idfornecedores_tto, nome_tto, email_tto, enderecoCompleto_tto, telefone_tto, cnpj_tto, jBtnIncluir,
+                jBtnCancelar, jBtnExcluir, jBtnPesquisar, jBtnConfirmar, jBtnAlterar);
 
-        Util.habilitar(true, idfornecedores_tto, nome_tto, email_tto, enderecoCompleto_tto, telefone_tto, cnpj_tto,
-                jBtnIncluir, jBtnCancelar, jBtnExcluir, jBtnPesquisar, jBtnConfirmar, jBtnAlterar);
-        
+        Util.habilitar(true, idfornecedores_tto, nome_tto, email_tto, enderecoCompleto_tto, telefone_tto, cnpj_tto, jBtnIncluir,
+                jBtnCancelar, jBtnExcluir, jBtnPesquisar, jBtnConfirmar, jBtnAlterar);
     }//GEN-LAST:event_jBtnAlterarActionPerformed
 
     private void jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirActionPerformed
         // TODO add your handling code here:
-        if (Util.perguntar("Deseja excluir o fornecedor?") == true) {
-        }
-        
-        Util.limparCampos(idfornecedores_tto, nome_tto, email_tto, enderecoCompleto_tto, telefone_tto, cnpj_tto,
-                jBtnIncluir, jBtnCancelar, jBtnExcluir, jBtnPesquisar, jBtnConfirmar, jBtnAlterar);
+        Util.limparCampos(idfornecedores_tto, nome_tto, email_tto, enderecoCompleto_tto, telefone_tto, cnpj_tto, jBtnIncluir,
+                jBtnCancelar, jBtnExcluir, jBtnPesquisar, jBtnConfirmar, jBtnAlterar);
 
-        Util.habilitar(false, idfornecedores_tto, nome_tto, email_tto, enderecoCompleto_tto, telefone_tto, cnpj_tto,
-                jBtnIncluir, jBtnCancelar, jBtnExcluir, jBtnPesquisar, jBtnConfirmar, jBtnAlterar);
-        
+        Util.habilitar(false, idfornecedores_tto, nome_tto, email_tto, enderecoCompleto_tto, telefone_tto, cnpj_tto, jBtnIncluir,
+                jBtnCancelar, jBtnExcluir, jBtnPesquisar, jBtnConfirmar, jBtnAlterar);
     }//GEN-LAST:event_jBtnExcluirActionPerformed
 
     private void jBtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmarActionPerformed
         // TODO add your handling code here:
-        //Fornecedores fornecedores = viewBean();
-        Fornecedores_DAO fornecedores_DAO = new Fornecedores_DAO();
+        Util.limparCampos(idfornecedores_tto, nome_tto, email_tto, enderecoCompleto_tto, telefone_tto, cnpj_tto, jBtnIncluir,
+                jBtnCancelar, jBtnExcluir, jBtnPesquisar, jBtnConfirmar, jBtnAlterar);
 
-        Util.limparCampos(idfornecedores_tto, nome_tto, email_tto, enderecoCompleto_tto, telefone_tto, cnpj_tto,
-                jBtnIncluir, jBtnCancelar, jBtnExcluir, jBtnPesquisar, jBtnConfirmar, jBtnAlterar);
-
-        Util.habilitar(true, idfornecedores_tto, nome_tto, email_tto, enderecoCompleto_tto, telefone_tto, cnpj_tto,
-                jBtnIncluir, jBtnCancelar, jBtnExcluir, jBtnPesquisar, jBtnConfirmar, jBtnAlterar);
-
+        Util.habilitar(true, idfornecedores_tto, nome_tto, email_tto, enderecoCompleto_tto, telefone_tto, cnpj_tto, jBtnIncluir,
+                jBtnCancelar, jBtnExcluir, jBtnPesquisar, jBtnConfirmar, jBtnAlterar);
     }//GEN-LAST:event_jBtnConfirmarActionPerformed
 
     private void jBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelarActionPerformed
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(null, "Cancelamento concluido");
-        Util.limparCampos(idfornecedores_tto, nome_tto, email_tto, enderecoCompleto_tto, telefone_tto, cnpj_tto,
-                jBtnIncluir, jBtnCancelar, jBtnExcluir, jBtnPesquisar, jBtnConfirmar, jBtnAlterar);
-
-        Util.habilitar(false, idfornecedores_tto, nome_tto, email_tto, enderecoCompleto_tto, telefone_tto, cnpj_tto,
-                jBtnIncluir, jBtnCancelar, jBtnExcluir, jBtnPesquisar, jBtnConfirmar, jBtnAlterar);
-
+        Util.limparCampos(idfornecedores_tto, nome_tto, email_tto, enderecoCompleto_tto, telefone_tto, cnpj_tto, jBtnIncluir,
+                jBtnCancelar, jBtnExcluir, jBtnPesquisar, jBtnConfirmar, jBtnAlterar);
+        Util.habilitar(false, idfornecedores_tto, nome_tto, email_tto, enderecoCompleto_tto, telefone_tto, cnpj_tto, jBtnIncluir,
+                jBtnCancelar, jBtnExcluir, jBtnPesquisar, jBtnConfirmar, jBtnAlterar);
     }//GEN-LAST:event_jBtnCancelarActionPerformed
 
     private void jBtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPesquisarActionPerformed
@@ -366,7 +344,6 @@ public class JDlgFornecedores extends javax.swing.JDialog {
         JDlgFornecedoresPesquisa jDlgFornecedoresPesquisa = new JDlgFornecedoresPesquisa(null, true);
         jDlgFornecedoresPesquisa.setTelaAnterior(this);
         jDlgFornecedoresPesquisa.setVisible(true);
-        
     }//GEN-LAST:event_jBtnPesquisarActionPerformed
 
     private void idfornecedores_ttoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_idfornecedores_ttoFocusGained

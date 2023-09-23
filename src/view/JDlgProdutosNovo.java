@@ -5,6 +5,9 @@
  */
 package view;
 
+import bean.ProdutosTto;
+import dao.Produtos_DAO;
+import java.util.List;
 import tools.Util;
 
 /**
@@ -16,12 +19,22 @@ public class JDlgProdutosNovo extends javax.swing.JDialog {
     /**
      * Creates new form JDlgProdutosNovo
      */
-    JDlgProdutosNovoIA jDlgPordutosNovoIA;
+    ProdutosTto produtos;
+    JDlgProdutosNovoIA jDlgProdutosNovoIA;
+    ProdutosControle produtosControle;
+    Produtos_DAO produtos_DAO;
 
     public JDlgProdutosNovo(java.awt.Frame parent, boolean modal) {
         initComponents();
-        setTitle("Cadastro de Fornecedores");
+        jDlgProdutosNovoIA = new JDlgProdutosNovoIA(null, true);
+        setTitle("Cadastro de Produtos");
         setLocationRelativeTo(null);
+
+        produtosControle = new ProdutosControle();
+        produtos_DAO = new Produtos_DAO();
+        List lista = produtos_DAO.listAll();
+        produtosControle.setList(lista);
+        jTable1.setModel(produtosControle);
     }
 
     /**
@@ -104,19 +117,27 @@ public class JDlgProdutosNovo extends javax.swing.JDialog {
 
     private void jBtnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluirActionPerformed
         // TODO add your handling code here:
-        JDlgProdutosNovoIA jDlgProdutosNovoIA = new JDlgProdutosNovoIA(null, true);
+        jDlgProdutosNovoIA.setTitle("Inclusão");
         jDlgProdutosNovoIA.setVisible(true);
     }//GEN-LAST:event_jBtnIncluirActionPerformed
 
     private void jBtnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarActionPerformed
         // TODO add your handling code here:
-        JDlgProdutosNovoIA jDlgProdutosNovoIA = new JDlgProdutosNovoIA(null, true);
+        jDlgProdutosNovoIA.setTitle("Alteração");
         jDlgProdutosNovoIA.setVisible(true);
     }//GEN-LAST:event_jBtnAlterarActionPerformed
 
     private void jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirActionPerformed
         // TODO add your handling code here:
         if (Util.perguntar("Deseja excluir o produtos?") == true) {
+            int sel = jTable1.getSelectedRow();
+            produtos = produtosControle.getBean(sel);
+            produtos_DAO.delete(produtos);
+
+            List lista = produtos_DAO.listAll();
+            produtosControle.setList(lista);
+        } else {
+            Util.mensagem("Exclusão cancelada");
         }
     }//GEN-LAST:event_jBtnExcluirActionPerformed
 

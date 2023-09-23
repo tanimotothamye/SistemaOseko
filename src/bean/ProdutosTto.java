@@ -1,14 +1,9 @@
 package bean;
-// Generated Sep 16, 2023 5:55:13 PM by Hibernate Tools 4.3.1
+// Generated Sep 22, 2023 8:43:48 PM by Hibernate Tools 4.3.1
 
-
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -24,31 +19,21 @@ public class ProdutosTto  implements java.io.Serializable {
      private int idprodutosTto;
      private String nomeTto;
      private String descricaoTto;
-     private String valorCompraTto;
-     private String valorVendaTto;
-     private String categoriaTto;
-     private Set comprasProdutosTtos = new HashSet(0);
+     private double valorCompraTto;
+     private double valorVendaTto;
+     private int categoriaTto;
 
     public ProdutosTto() {
     }
 
 	
-    public ProdutosTto(int idprodutosTto, String nomeTto, String descricaoTto, String valorCompraTto, String valorVendaTto, String categoriaTto) {
+    public ProdutosTto(int idprodutosTto, String nomeTto, String descricaoTto, double valorCompraTto, double valorVendaTto, int categoriaTto) {
         this.idprodutosTto = idprodutosTto;
         this.nomeTto = nomeTto;
         this.descricaoTto = descricaoTto;
         this.valorCompraTto = valorCompraTto;
         this.valorVendaTto = valorVendaTto;
         this.categoriaTto = categoriaTto;
-    }
-    public ProdutosTto(int idprodutosTto, String nomeTto, String descricaoTto, String valorCompraTto, String valorVendaTto, String categoriaTto, Set comprasProdutosTtos) {
-       this.idprodutosTto = idprodutosTto;
-       this.nomeTto = nomeTto;
-       this.descricaoTto = descricaoTto;
-       this.valorCompraTto = valorCompraTto;
-       this.valorVendaTto = valorVendaTto;
-       this.categoriaTto = categoriaTto;
-       this.comprasProdutosTtos = comprasProdutosTtos;
     }
    
      @Id 
@@ -84,47 +69,34 @@ public class ProdutosTto  implements java.io.Serializable {
     }
 
     
-    @Column(name="valorCompra_tto", nullable=false, length=45)
-    public String getValorCompraTto() {
+    @Column(name="valorCompra_tto", nullable=false, precision=10)
+    public double getValorCompraTto() {
         return this.valorCompraTto;
     }
     
-    public void setValorCompraTto(String valorCompraTto) {
+    public void setValorCompraTto(double valorCompraTto) {
         this.valorCompraTto = valorCompraTto;
     }
 
     
-    @Column(name="valorVenda_tto", nullable=false, length=45)
-    public String getValorVendaTto() {
+    @Column(name="valorVenda_tto", nullable=false, precision=10)
+    public double getValorVendaTto() {
         return this.valorVendaTto;
     }
     
-    public void setValorVendaTto(String valorVendaTto) {
+    public void setValorVendaTto(double valorVendaTto) {
         this.valorVendaTto = valorVendaTto;
     }
 
     
     @Column(name="categoria_tto", nullable=false, length=45)
-    public String getCategoriaTto() {
+    public int getCategoriaTto() {
         return this.categoriaTto;
     }
     
-    public void setCategoriaTto(String categoriaTto) {
+    public void setCategoriaTto(int categoriaTto) {
         this.categoriaTto = categoriaTto;
     }
-
-@OneToMany(fetch=FetchType.LAZY, mappedBy="produtosTto")
-    public Set getComprasProdutosTtos() {
-        return this.comprasProdutosTtos;
-    }
-    
-    public void setComprasProdutosTtos(Set comprasProdutosTtos) {
-        this.comprasProdutosTtos = comprasProdutosTtos;
-    }
-
-
-
-
 }
 
 

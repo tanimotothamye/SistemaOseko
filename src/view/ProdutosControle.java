@@ -5,7 +5,7 @@
  */
 package view;
 
-import bean.UsuariosTto;
+import bean.ProdutosTto;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
@@ -13,14 +13,14 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author tate
  */
-public class UsuariosControle extends AbstractTableModel{
+public class ProdutosControle extends AbstractTableModel{
     private List lista;
     public void setList(List lista){
     this.lista = lista;
     }
 
-    public UsuariosTto getBean (int row){
-    return (UsuariosTto) lista.get(row);
+    public ProdutosTto getBean (int row){
+    return (ProdutosTto) lista.get(row);
     }
     
     @Override
@@ -30,32 +30,29 @@ public class UsuariosControle extends AbstractTableModel{
 
     @Override
     public int getColumnCount() {
-        return 7;
+        return 6;
     }
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        UsuariosTto usuarios =(UsuariosTto) lista.get(rowIndex);
+        ProdutosTto produtos =(ProdutosTto) lista.get(rowIndex);
          if (columnIndex == 0 ) {
-            return usuarios.getIdusuariosTto();
+            return produtos.getIdprodutosTto();
         }
         if (columnIndex == 1 ) {
-            return usuarios.getNomeTto();
+            return produtos.getNomeTto();
         }
         if (columnIndex == 2 ) {
-            return usuarios.getNicknameTto();
+            return produtos.getDescricaoTto();
         }
         if (columnIndex == 3 ) {
-            return usuarios.getCpfTto();
+            return produtos.getValorCompraTto();
         }
         if (columnIndex == 4 ) {
-            return usuarios.getSenhaTto();
+            return produtos.getValorVendaTto();
         }
         if (columnIndex == 5 ) {
-            return usuarios.getNivelTto();
-        }
-        if (columnIndex == 6 ) {
-            return usuarios.getAtivoTto();
+            return produtos.getCategoriaTto();
         }
          return "";
     }
@@ -68,19 +65,16 @@ public class UsuariosControle extends AbstractTableModel{
             return "nome";
         }
         if (column == 2 ) {
-            return "apelido";
+            return "descricao";
         }
         if (column == 3 ) {
-            return "cpf";
+            return "valorCompra";
         }
         if (column == 4 ) {
-            return "senha";
+            return "valorVenda";
         }
-        if (column == 5 ) {
-            return "nivel";
-        }
-        if (column == 6 ) {
-            return "ativo";
+         if (column == 5 ) {
+            return "categoria";
         }
         return "";
     }

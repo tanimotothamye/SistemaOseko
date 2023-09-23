@@ -20,7 +20,7 @@ import tools.Util;
 
 /**
  *
- * @author u10475493109
+ * @author tate
  */
 public class JDlgUsuarios extends javax.swing.JDialog {
 
@@ -52,7 +52,7 @@ public class JDlgUsuarios extends javax.swing.JDialog {
 
     }
 
-    /* public UsuariosTto viewBean() {
+     public UsuariosTto viewBean() {
         UsuariosTto usuarios = new UsuariosTto();
         int id = Integer.parseInt(idusuarios_tto.getText());
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
@@ -93,7 +93,7 @@ public class JDlgUsuarios extends javax.swing.JDialog {
         }
 
     }
-     */
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

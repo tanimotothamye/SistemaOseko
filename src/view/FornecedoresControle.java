@@ -11,7 +11,7 @@ import javax.swing.table.AbstractTableModel;
 
 /**
  *
- * @author u49558987859
+ * @author tate
  */
 public class FornecedoresControle extends AbstractTableModel{
     private List lista;

@@ -1,16 +1,13 @@
 package bean;
-// Generated Sep 16, 2023 5:55:13 PM by Hibernate Tools 4.3.1
+// Generated Sep 22, 2023 8:43:48 PM by Hibernate Tools 4.3.1
 
 
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -27,27 +24,18 @@ public class ComprasTto  implements java.io.Serializable {
      private FornecedoresTto fornecedoresTto;
      private FuncionariosTto funcionariosTto;
      private String dataTto;
-     private Double totalTto;
-     private Set comprasProdutosTtos = new HashSet(0);
+     private double totalTto;
 
     public ComprasTto() {
     }
 
 	
-    public ComprasTto(int idcomprasTto, FornecedoresTto fornecedoresTto, FuncionariosTto funcionariosTto, String dataTto, Double totalTto) {
+    public ComprasTto(int idcomprasTto, FornecedoresTto fornecedoresTto, FuncionariosTto funcionariosTto, String dataTto, double totalTto) {
         this.idcomprasTto = idcomprasTto;
         this.fornecedoresTto = fornecedoresTto;
         this.funcionariosTto = funcionariosTto;
         this.dataTto = dataTto;
         this.totalTto = totalTto;
-    }
-    public ComprasTto(int idcomprasTto, FornecedoresTto fornecedoresTto, FuncionariosTto funcionariosTto, String dataTto, Double totalTto, Set comprasProdutosTtos) {
-       this.idcomprasTto = idcomprasTto;
-       this.fornecedoresTto = fornecedoresTto;
-       this.funcionariosTto = funcionariosTto;
-       this.dataTto = dataTto;
-       this.totalTto = totalTto;
-       this.comprasProdutosTtos = comprasProdutosTtos;
     }
    
      @Id 
@@ -94,26 +82,13 @@ public class ComprasTto  implements java.io.Serializable {
 
     
     @Column(name="total_tto", nullable=false, precision=10)
-    public Double getTotalTto() {
+    public double getTotalTto() {
         return this.totalTto;
     }
     
-    public void setTotalTto(Double totalTto) {
+    public void setTotalTto(double totalTto) {
         this.totalTto = totalTto;
     }
-
-@OneToMany(fetch=FetchType.LAZY, mappedBy="comprasTto")
-    public Set getComprasProdutosTtos() {
-        return this.comprasProdutosTtos;
-    }
-    
-    public void setComprasProdutosTtos(Set comprasProdutosTtos) {
-        this.comprasProdutosTtos = comprasProdutosTtos;
-    }
-
-
-
-
 }
 
 
