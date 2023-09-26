@@ -15,8 +15,10 @@ import javax.swing.table.AbstractTableModel;
  */
 public class UsuariosControle extends AbstractTableModel{
     private List lista;
+    
     public void setList(List lista){
     this.lista = lista;
+    this.fireTableDataChanged();
     }
 
     public UsuariosTto getBean (int row){
@@ -30,7 +32,7 @@ public class UsuariosControle extends AbstractTableModel{
 
     @Override
     public int getColumnCount() {
-        return 7;
+        return 6;
     }
 
     @Override

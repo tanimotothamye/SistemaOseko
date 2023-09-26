@@ -31,9 +31,10 @@ public class JDlgFuncionariosNovoIA extends javax.swing.JDialog {
         initComponents();
         setTitle("Inclusão de Funcionários");
         setLocationRelativeTo(null);
+        Util.limparCampos(idfuncionarios_tto, nome_tto, email_tto, emailReserva_tto, cpf_tto,
+                dataNascimento_tto, celular_tto, carteiratrabalho_tto, bairro_tto, cidade_tto,
+                pais_tto, cep_tto, telefone_tto, endereco_tto, sexo_tto, ativo_tto);
 
-        setTitle("Cadastro de Funcionários");
-        setLocationRelativeTo(null);
         try {
             mascaraCPF = new MaskFormatter("###.###.###-##");
             mascaraDataNascimento = new MaskFormatter("##/##/####");
@@ -53,8 +54,8 @@ public class JDlgFuncionariosNovoIA extends javax.swing.JDialog {
     }
 
     public FuncionariosTto viewBean() {
-
-        /*novo jeito de converter. Apartir do Util*/
+        FuncionariosTto funcionarios = new FuncionariosTto();
+        
         funcionarios.setIdfuncionariosTto(Util.strInt(idfuncionarios_tto.getText()));
         funcionarios.setNomeTto(nome_tto.getText());
         funcionarios.setCpfTto(cpf_tto.getText());
@@ -96,7 +97,7 @@ public class JDlgFuncionariosNovoIA extends javax.swing.JDialog {
         endereco_tto.setText(funcionarios.getEnderecoTto());
         nome_tto.setText(funcionarios.getNomeTto());
         sexo_tto.setSelectedIndex(funcionarios.getSexoTto());
-        
+
         if (funcionarios.getAtivoTto().equals("S") == true) {
             ativo_tto.setSelected(true);
         } else {
@@ -469,8 +470,12 @@ public class JDlgFuncionariosNovoIA extends javax.swing.JDialog {
     private void jBtnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnOkActionPerformed
         setVisible(false);
         funcionarios = viewBean();
+        Funcionarios_DAO funcionarios_DAO = new Funcionarios_DAO();
         funcionarios_DAO.insert(funcionarios);
         Util.mensagem("Adicionado com sucesso!");
+        Util.limparCampos(idfuncionarios_tto, nome_tto, email_tto, emailReserva_tto, cpf_tto,
+                dataNascimento_tto, celular_tto, carteiratrabalho_tto, bairro_tto, cidade_tto,
+                pais_tto, cep_tto, telefone_tto, endereco_tto, sexo_tto, ativo_tto);
         // TODO add your handling code here:
     }//GEN-LAST:event_jBtnOkActionPerformed
 

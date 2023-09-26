@@ -114,7 +114,7 @@ public class JDlgFornecedoresPesquisa extends javax.swing.JDialog {
         // TODO add your handling code here:
         int  rowSel = jTable1.getSelectedRow();
         FornecedoresTto fornecedores = fornecedoresControle.getBean(rowSel);
-        //jDlgFornecedores.beanView(fornecedores);
+        jDlgFornecedores.beanView(fornecedores);
         setVisible(false);
     }//GEN-LAST:event_jBtnOkActionPerformed
 

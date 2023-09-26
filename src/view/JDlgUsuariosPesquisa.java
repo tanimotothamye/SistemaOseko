@@ -17,7 +17,7 @@ public class JDlgUsuariosPesquisa extends javax.swing.JDialog {
 
     private JDlgUsuarios jDlgUsuarios;
     private UsuariosControle usuariosControle;
-   
+
     /**
      * Creates new form JDlgUsuariosPesquisa
      */
@@ -114,9 +114,9 @@ public class JDlgUsuariosPesquisa extends javax.swing.JDialog {
 
     private void jBtnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnOkActionPerformed
         // TODO add your handling code here:
-        int  rowSel = jTable1.getSelectedRow();
+        int rowSel = jTable1.getSelectedRow();
         UsuariosTto usuarios = usuariosControle.getBean(rowSel);
-        //jDlgUsuarios.beanView(usuarios);
+        jDlgUsuarios.beanView(usuarios);
         setVisible(false);
     }//GEN-LAST:event_jBtnOkActionPerformed
 

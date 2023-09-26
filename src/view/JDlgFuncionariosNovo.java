@@ -19,8 +19,8 @@ import tools.Util;
  */
 public class JDlgFuncionariosNovo extends javax.swing.JDialog {
 
+    private JDlgFuncionariosNovoIA jDlgFuncionariosNovoIA;
     FuncionariosTto funcionarios;
-    JDlgFuncionariosNovoIA jDlgFuncionariosNovoIA;
     FuncionariosControle funcionariosControle;
     Funcionarios_DAO funcionarios_DAO;
 
@@ -32,12 +32,16 @@ public class JDlgFuncionariosNovo extends javax.swing.JDialog {
         jDlgFuncionariosNovoIA = new JDlgFuncionariosNovoIA(null, true);
         setTitle("Cadastro de Produtos");
         setLocationRelativeTo(null);
+        Util.habilitar(true, jBtnIncluir, jBtnExcluir, jBtnAlterar);
 
         funcionariosControle = new FuncionariosControle();
         funcionarios_DAO = new Funcionarios_DAO();
+        jTable1.setModel(funcionariosControle);
         List lista = funcionarios_DAO.listAll();
         funcionariosControle.setList(lista);
-        jTable1.setModel(funcionariosControle);
+
+        Util.habilitar(true, jBtnIncluir, jBtnExcluir, jBtnAlterar);
+
     }
 
     /**
@@ -139,6 +143,8 @@ public class JDlgFuncionariosNovo extends javax.swing.JDialog {
 
             List lista = funcionarios_DAO.listAll();
             funcionariosControle.setList(lista);
+            jTable1.setModel(funcionariosControle);
+
         } else {
             Util.mensagem("Exclusão cancelada");
         }

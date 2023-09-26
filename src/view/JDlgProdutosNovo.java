@@ -19,10 +19,10 @@ public class JDlgProdutosNovo extends javax.swing.JDialog {
     /**
      * Creates new form JDlgProdutosNovo
      */
-    ProdutosTto produtos;
-    JDlgProdutosNovoIA jDlgProdutosNovoIA;
+    private JDlgProdutosNovoIA jDlgProdutosNovoIA;
     ProdutosControle produtosControle;
     Produtos_DAO produtos_DAO;
+    ProdutosTto produtos;
 
     public JDlgProdutosNovo(java.awt.Frame parent, boolean modal) {
         initComponents();
@@ -129,7 +129,7 @@ public class JDlgProdutosNovo extends javax.swing.JDialog {
 
     private void jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirActionPerformed
         // TODO add your handling code here:
-        if (Util.perguntar("Deseja excluir o produtos?") == true) {
+        if (Util.perguntar("Deseja excluir o produto?") == true) {
             int sel = jTable1.getSelectedRow();
             produtos = produtosControle.getBean(sel);
             produtos_DAO.delete(produtos);

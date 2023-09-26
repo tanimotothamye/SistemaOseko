@@ -6,6 +6,7 @@
 package view;
 
 import bean.ProdutosTto;
+import dao.Funcionarios_DAO;
 import dao.Produtos_DAO;
 import tools.Util;
 
@@ -15,8 +16,8 @@ import tools.Util;
  */
 public class JDlgProdutosNovoIA extends javax.swing.JDialog {
 
-    ProdutosTto produtos;
-    Produtos_DAO produtos_DAO;
+    ProdutosTto funcionarios;
+    Produtos_DAO funcionarios_DAO;
 
     /**
      * Creates new form JDlgUsuariosNovoIA
@@ -24,16 +25,18 @@ public class JDlgProdutosNovoIA extends javax.swing.JDialog {
     public JDlgProdutosNovoIA(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        Util.limparCampos(idprodutos_tto, nome_tto, descricao_tto, valorCompra_tto,
+                valorVenda_tto, categoria_tto);
         setTitle("Inclusão de Produtos");
         setLocationRelativeTo(null);
     }
 
     public ProdutosTto viewBean() {
-
+        ProdutosTto produtos = new ProdutosTto();
         /*novo jeito de converter. Apartir do Util*/
         produtos.setIdprodutosTto(Util.strInt(idprodutos_tto.getText()));
         produtos.setNomeTto(nome_tto.getText());
-        produtos.setDescricaoTto(descricao_tto.getText());     
+        produtos.setDescricaoTto(descricao_tto.getText());
         produtos.setValorCompraTto(Util.strDouble(valorCompra_tto.getText()));
         produtos.setValorVendaTto(Util.strDouble(valorVenda_tto.getText()));
         produtos.setCategoriaTto(categoria_tto.getSelectedIndex());
@@ -192,11 +195,15 @@ public class JDlgProdutosNovoIA extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnOkActionPerformed
-        setVisible(false);
-        produtos = viewBean();
+        Produtos_DAO produtos_DAO = new Produtos_DAO();
+        funcionarios_DAO.insert(funcionarios);
+        ProdutosTto produtos = viewBean();
         produtos_DAO.insert(produtos);
-        
+
         Util.mensagem("Adicionado com sucesso!");
+        Util.limparCampos();
+
+        setVisible(false);
 // TODO add your handling code here:
     }//GEN-LAST:event_jBtnOkActionPerformed
 

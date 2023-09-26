@@ -5,23 +5,23 @@
  */
 package view;
 
-import bean.FornecedoresTto;
+import bean.ComprasTto;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 /**
  *
- * @author tate
+ * @author u49558987859
  */
-public class FornecedoresControle extends AbstractTableModel{
+public class ComprasControle extends AbstractTableModel{
     private List lista;
     public void setList(List lista){
     this.lista = lista;
     this.fireTableDataChanged();
     }
 
-    public FornecedoresTto getBean (int row){
-    return (FornecedoresTto) lista.get(row);
+    public ComprasTto getBean (int row){
+    return (ComprasTto) lista.get(row);
     }
     
     @Override
@@ -31,30 +31,27 @@ public class FornecedoresControle extends AbstractTableModel{
 
     @Override
     public int getColumnCount() {
-        return 6;
+        return 5;
     }
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        FornecedoresTto fornecedores =(FornecedoresTto) lista.get(rowIndex);
+        ComprasTto compras =(ComprasTto) lista.get(rowIndex);
          if (columnIndex == 0 ) {
-            return fornecedores.getIdfornecedoresTto();
+            return compras.getIdcomprasTto();
         }
         if (columnIndex == 1 ) {
-            return fornecedores.getNomeTto();
+            return compras.getDataTto();
         }
         if (columnIndex == 2 ) {
-            return fornecedores.getEmailTto();
+            return compras.getFornecedoresTto();
         }
         if (columnIndex == 3 ) {
-            return fornecedores.getTelefoneTto();
+            return compras.getFuncionariosTto();
         }
-        if (columnIndex == 4 ) {
-            return fornecedores.getCnpjTto();
-        }
-         if (columnIndex == 5 ) {
-            return fornecedores.getEnderecoCompletoTto();
-        }
+         if (columnIndex == 4 ) {
+            return compras.getTotalTto();
+         }
          return "";
     }
     @Override
@@ -63,19 +60,16 @@ public class FornecedoresControle extends AbstractTableModel{
             return "id";
         }
         if (column == 1 ) {
-            return "nome";
+            return "data";
         }
         if (column == 2 ) {
-            return "email";
+            return "fornecedores";
         }
         if (column == 3 ) {
-            return "telefone";
+            return "funcionarios";
         }
         if (column == 4 ) {
-            return "cnpj";
-        }
-        if (column == 4 ) {
-            return "enderecocompleto";
+            return "valor";
         }
         return "";
     }
