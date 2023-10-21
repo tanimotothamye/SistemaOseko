@@ -6,42 +6,37 @@
 package view;
 
 import bean.FuncionariosTto;
-import bean.ProdutosTto;
 import dao.Funcionarios_DAO;
-import dao.Produtos_DAO;
 import java.util.List;
-import javax.swing.JOptionPane;
 import tools.Util;
 
 /**
  *
- * @author tate
+ * @author TATY
  */
 public class JDlgFuncionariosNovo extends javax.swing.JDialog {
 
-    private JDlgFuncionariosNovoIA jDlgFuncionariosNovoIA;
-    FuncionariosTto funcionarios;
+    JDlgFuncionariosNovoIA jDlgFuncionariosNovoIA;
     FuncionariosControle funcionariosControle;
     Funcionarios_DAO funcionarios_DAO;
-
+    FuncionariosTto funcionariosTto;
+    
     /**
-     * Creates new form JDlgFuncionariosNovo
+     * Creates new form JDlgFuncionariosNovo1
      */
     public JDlgFuncionariosNovo(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
         initComponents();
         jDlgFuncionariosNovoIA = new JDlgFuncionariosNovoIA(null, true);
-        setTitle("Cadastro de Produtos");
+        setTitle("Cadastro de Funcionários");
         setLocationRelativeTo(null);
-        Util.habilitar(true, jBtnIncluir, jBtnExcluir, jBtnAlterar);
-
+        
         funcionariosControle = new FuncionariosControle();
         funcionarios_DAO = new Funcionarios_DAO();
-        jTable1.setModel(funcionariosControle);
+        
         List lista = funcionarios_DAO.listAll();
         funcionariosControle.setList(lista);
-
-        Util.habilitar(true, jBtnIncluir, jBtnExcluir, jBtnAlterar);
-
+        jTable1.setModel(funcionariosControle);
     }
 
     /**
@@ -53,102 +48,123 @@ public class JDlgFuncionariosNovo extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jBtnIncluir = new javax.swing.JButton();
-        jBtnAlterar = new javax.swing.JButton();
         jBtnExcluir = new javax.swing.JButton();
+        jBtnAlterar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(jTable1);
-
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jBtnIncluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/incluir.png"))); // NOI18N
-        jBtnIncluir.setText("incluir");
+        jBtnIncluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/incluir_1.png"))); // NOI18N
+        jBtnIncluir.setText("Incluir");
         jBtnIncluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnIncluirActionPerformed(evt);
             }
         });
-        jPanel1.add(jBtnIncluir);
-
-        jBtnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/alterar_1.png"))); // NOI18N
-        jBtnAlterar.setText("alterar");
-        jBtnAlterar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnAlterarActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jBtnAlterar);
 
         jBtnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Excluir_1.png"))); // NOI18N
-        jBtnExcluir.setText("excluir");
+        jBtnExcluir.setText("Excluir");
         jBtnExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnExcluirActionPerformed(evt);
             }
         });
-        jPanel1.add(jBtnExcluir);
+
+        jBtnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/alterar_1.png"))); // NOI18N
+        jBtnAlterar.setText("Alterar");
+        jBtnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnAlterarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jBtnIncluir)
+                .addGap(18, 18, 18)
+                .addComponent(jBtnAlterar)
+                .addGap(18, 18, 18)
+                .addComponent(jBtnExcluir)
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBtnExcluir)
+                    .addComponent(jBtnAlterar)
+                    .addComponent(jBtnIncluir))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Código", "Nome", "Cpf", "Email", "Telefone", "EmailRes", "Data Nasc", "Celular", "Bairro", "Cidade", "País", "Cep", "Endereço", "Sexo", "Ativo", "Carteira T"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 594, Short.MAX_VALUE)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 594, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 391, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirActionPerformed
+        // TODO add your handling code here:
+        if (Util.perguntar("Deseja excluir o funcionário?") == true){
+        int sel = jTable1.getSelectedRow();
+        funcionariosTto = funcionariosControle.getBean(sel);
+        funcionarios_DAO.delete(funcionariosTto);
+        
+        List lista = funcionarios_DAO.listAll();
+        funcionariosControle.setList(lista);
+        } else{
+            Util.mensagem("Exclusão cancelada");
+        }
+    }//GEN-LAST:event_jBtnExcluirActionPerformed
+
     private void jBtnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluirActionPerformed
         // TODO add your handling code here:
         jDlgFuncionariosNovoIA.setTitle("Inclusão");
         jDlgFuncionariosNovoIA.setVisible(true);
+        
+        List lista = funcionarios_DAO.listAll();
+        funcionariosControle.setList(lista);
+        jTable1.setModel(funcionariosControle);
     }//GEN-LAST:event_jBtnIncluirActionPerformed
 
     private void jBtnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarActionPerformed
         // TODO add your handling code here:
-        jDlgFuncionariosNovoIA.setTitle("Alteração");
-        jDlgFuncionariosNovoIA.setVisible(true);
     }//GEN-LAST:event_jBtnAlterarActionPerformed
-
-    private void jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirActionPerformed
-        // TODO add your handling code here:
-        if (Util.perguntar("Deseja excluir o funcionarios?") == true) {
-            int sel = jTable1.getSelectedRow();
-            funcionarios = funcionariosControle.getBean(sel);
-            funcionarios_DAO.delete(funcionarios);
-
-            List lista = funcionarios_DAO.listAll();
-            funcionariosControle.setList(lista);
-            jTable1.setModel(funcionariosControle);
-
-        } else {
-            Util.mensagem("Exclusão cancelada");
-        }
-    }//GEN-LAST:event_jBtnExcluirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -175,6 +191,7 @@ public class JDlgFuncionariosNovo extends javax.swing.JDialog {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(JDlgFuncionariosNovo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */

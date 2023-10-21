@@ -8,6 +8,7 @@ package view;
 import bean.FuncionariosTto;
 import dao.Funcionarios_DAO;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.text.DefaultFormatterFactory;
@@ -16,93 +17,66 @@ import tools.Util;
 
 /**
  *
- * @author tate
+ * @author TATY
  */
 public class JDlgFuncionariosNovoIA extends javax.swing.JDialog {
 
-    FuncionariosTto funcionarios;
+    FuncionariosTto funcionariosTto;
     Funcionarios_DAO funcionarios_DAO;
-    MaskFormatter mascaraCPF, mascaraDataNascimento, mascaraCelular, mascaraTelefone, mascaraCep, mascaraCarteiraTrabalho;
+    MaskFormatter mascaraCPF, mascaraDataNascimento, mascaraTelefone, mascaraCEP, mascaraCep, mascaraCelular;
 
     /**
-     * Creates new form JDlgFuncionarios
+     * Creates new form JDlgFuncionariosNovoIA
      */
     public JDlgFuncionariosNovoIA(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
         initComponents();
         setTitle("Inclusão de Funcionários");
         setLocationRelativeTo(null);
-        Util.limparCampos(idfuncionarios_tto, nome_tto, email_tto, emailReserva_tto, cpf_tto,
-                dataNascimento_tto, celular_tto, carteiratrabalho_tto, bairro_tto, cidade_tto,
-                pais_tto, cep_tto, telefone_tto, endereco_tto, sexo_tto, ativo_tto);
-
-        try {
-            mascaraCPF = new MaskFormatter("###.###.###-##");
-            mascaraDataNascimento = new MaskFormatter("##/##/####");
-            mascaraCelular = new MaskFormatter("(##)#####-####");
-            mascaraTelefone = new MaskFormatter("(##)#####-####");
-            mascaraCep = new MaskFormatter("#####-###");
-            mascaraCarteiraTrabalho = new MaskFormatter("######-####-##");
-        } catch (ParseException ex) {
-            Logger.getLogger(JDlgFuncionariosNovoIA.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        cpf_tto.setFormatterFactory(new DefaultFormatterFactory(mascaraCPF));
-        dataNascimento_tto.setFormatterFactory(new DefaultFormatterFactory(mascaraDataNascimento));
-        carteiratrabalho_tto.setFormatterFactory(new DefaultFormatterFactory(mascaraCarteiraTrabalho));
-        celular_tto.setFormatterFactory(new DefaultFormatterFactory(mascaraCelular));
-        cep_tto.setFormatterFactory(new DefaultFormatterFactory(mascaraCep));
-        telefone_tto.setFormatterFactory(new DefaultFormatterFactory(mascaraTelefone));
+        funcionarios_DAO = new Funcionarios_DAO();
+        
     }
 
     public FuncionariosTto viewBean() {
-        FuncionariosTto funcionarios = new FuncionariosTto();
-        
-        funcionarios.setIdfuncionariosTto(Util.strInt(idfuncionarios_tto.getText()));
-        funcionarios.setNomeTto(nome_tto.getText());
-        funcionarios.setCpfTto(cpf_tto.getText());
-        funcionarios.setEmailTto(email_tto.getText());
-        funcionarios.setTelefoneTto(telefone_tto.getText());
-        funcionarios.setEmailReservaTto(emailReserva_tto.getText());
-        funcionarios.setDataNascimentoTto(Util.strDate(dataNascimento_tto.getText()));
-        funcionarios.setCelularTto(celular_tto.getText());
-        funcionarios.setBairroTto(bairro_tto.getText());
-        funcionarios.setCidadeTto(cidade_tto.getText());
-        funcionarios.setPaisTto(pais_tto.getText());
-        funcionarios.setCepTto(cep_tto.getText());
-        funcionarios.setEnderecoTto(endereco_tto.getText());
-        funcionarios.setSexoTto(sexo_tto.getSelectedIndex());
-        if (ativo_tto.isSelected() == true) {
-            funcionarios.setAtivoTto("S");
-        } else {
-            funcionarios.setAtivoTto("N");
-        }
+        funcionariosTto = new FuncionariosTto();
+        funcionariosTto.setIdfuncionariosTto(Util.strInt(codigo_tto.getText()));
+        funcionariosTto.setNomeTto(nome_tto.getText());
+        funcionariosTto.setCpfTto(cpf_tto.getText());
+        funcionariosTto.setEmailTto(email_tto.getText());
+        funcionariosTto.setTelefoneTto(telefone_tto.getText());
+        funcionariosTto.setEmailReservaTto(emailReserva_tto.getText());
+        funcionariosTto.setDataNascimentoTto(Util.strDate(dataNascimento_tto.getText()));
+        funcionariosTto.setCelularTto(celular_tto.getText());
+        funcionariosTto.setBairroTto(bairro_tto.getText());
+        funcionariosTto.setCidadeTto(cidade_tto.getText());
+        funcionariosTto.setPaisTto(pais_tto.getText());
+        funcionariosTto.setCepTto(cep_tto.getText());
+        funcionariosTto.setEnderecoTto(endereco_tto.getText());
+        funcionariosTto.setSexoTto(sexo_tto.getSelectedIndex());
+        funcionariosTto.setAtivoTto(ativo_tto.getText());
+        funcionariosTto.setCarteiratrabalhoTto(carteiraTrabalho_tto.getText());
 
-        return funcionarios;
+        return funcionariosTto;
 
     }
 
-    public void beanView(FuncionariosTto funcionarios) {
-        idfuncionarios_tto.setText(Util.intStr(funcionarios.getIdfuncionariosTto()));
-        nome_tto.setText(funcionarios.getNomeTto());
-        cpf_tto.setText(funcionarios.getCpfTto());
-        email_tto.setText(funcionarios.getEmailTto());
-        telefone_tto.setText(funcionarios.getTelefoneTto());
-        emailReserva_tto.setText(funcionarios.getEmailReservaTto());
-        nome_tto.setText(funcionarios.getNomeTto());
-        dataNascimento_tto.setText(Util.dateStr(funcionarios.getDataNascimentoTto()));
-        celular_tto.setText(funcionarios.getCelularTto());
-        bairro_tto.setText(funcionarios.getBairroTto());
-        cidade_tto.setText(funcionarios.getCidadeTto());
-        pais_tto.setText(funcionarios.getPaisTto());
-        cep_tto.setText(funcionarios.getCepTto());
-        endereco_tto.setText(funcionarios.getEnderecoTto());
-        nome_tto.setText(funcionarios.getNomeTto());
-        sexo_tto.setSelectedIndex(funcionarios.getSexoTto());
-
-        if (funcionarios.getAtivoTto().equals("S") == true) {
-            ativo_tto.setSelected(true);
-        } else {
-            ativo_tto.setSelected(false);
-        }
+    public void beanView(FuncionariosTto funcionariosTto) {
+        codigo_tto.setText(Util.intStr(funcionariosTto.getIdfuncionariosTto()));
+        nome_tto.setText(funcionariosTto.getNomeTto());
+        cpf_tto.setText(funcionariosTto.getCpfTto());
+        email_tto.setText(funcionariosTto.getEmailTto());
+        telefone_tto.setText(funcionariosTto.getTelefoneTto());
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        dataNascimento_tto.setText(formato.format(funcionariosTto.getDataNascimentoTto()));
+        celular_tto.setText(funcionariosTto.getCelularTto());
+        bairro_tto.setText(funcionariosTto.getBairroTto());
+        cidade_tto.setText(funcionariosTto.getCidadeTto());
+        pais_tto.setText(funcionariosTto.getPaisTto());
+        cep_tto.setText(funcionariosTto.getCepTto());
+        endereco_tto.setText(funcionariosTto.getEnderecoTto());
+        sexo_tto.setToolTipText(Util.intStr(funcionariosTto.getSexoTto()));
+        ativo_tto.setText(funcionariosTto.getAtivoTto());
+        carteiraTrabalho_tto.setText(funcionariosTto.getCarteiratrabalhoTto());
 
     }
 
@@ -115,124 +89,99 @@ public class JDlgFuncionariosNovoIA extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        cidade_tto = new javax.swing.JTextField();
-        sexo_tto = new javax.swing.JComboBox<>();
-        jLabel11 = new javax.swing.JLabel();
-        dataNascimento_tto = new javax.swing.JFormattedTextField();
-        pais_tto = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        bairro_tto = new javax.swing.JTextField();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        telefone_tto = new javax.swing.JFormattedTextField();
-        endereco_tto = new javax.swing.JTextField();
-        cep_tto = new javax.swing.JFormattedTextField();
-        ativo_tto = new javax.swing.JCheckBox();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        celular_tto = new javax.swing.JFormattedTextField();
-        cpf_tto = new javax.swing.JFormattedTextField();
-        nome_tto = new javax.swing.JTextField();
-        carteiratrabalho_tto = new javax.swing.JFormattedTextField();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        email_tto = new javax.swing.JTextField();
-        idfuncionarios_tto = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        emailReserva_tto = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jBtnOk = new javax.swing.JButton();
         jBtnCancelar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        nome_tto = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        celular_tto = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        email_tto = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        emailReserva_tto = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        cpf_tto = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        dataNascimento_tto = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        carteiraTrabalho_tto = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        bairro_tto = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        cidade_tto = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        pais_tto = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        cep_tto = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        telefone_tto = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
+        endereco_tto = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        codigo_tto = new javax.swing.JTextField();
+        sexo_tto = new javax.swing.JComboBox<>();
+        jLabel15 = new javax.swing.JLabel();
+        ativo_tto = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel5.setText("Sexo");
+        jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jLabel6.setText("Celular");
-
-        jLabel7.setText("Cpf");
-
-        cidade_tto.addActionListener(new java.awt.event.ActionListener() {
+        jBtnOk.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/ok_1.png"))); // NOI18N
+        jBtnOk.setText("OK");
+        jBtnOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cidade_ttoActionPerformed(evt);
+                jBtnOkActionPerformed(evt);
             }
         });
 
-        sexo_tto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Feminino", "Maculino", "Outro" }));
-        sexo_tto.addActionListener(new java.awt.event.ActionListener() {
+        jBtnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/cancelar_1.png"))); // NOI18N
+        jBtnCancelar.setText("Cancelar");
+        jBtnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                sexo_ttoActionPerformed(evt);
+                jBtnCancelarActionPerformed(evt);
             }
         });
 
-        jLabel11.setText("País");
-
-        pais_tto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pais_ttoActionPerformed(evt);
-            }
-        });
-
-        jLabel9.setText("Bairro");
-
-        jLabel12.setText("Cep");
-
-        jLabel13.setText("Telefone");
-
-        jLabel10.setText("Cidade");
-
-        telefone_tto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                telefone_ttoActionPerformed(evt);
-            }
-        });
-
-        endereco_tto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                endereco_ttoActionPerformed(evt);
-            }
-        });
-
-        cep_tto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cep_ttoActionPerformed(evt);
-            }
-        });
-
-        ativo_tto.setText("Ativo ");
-        ativo_tto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ativo_ttoActionPerformed(evt);
-            }
-        });
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jBtnOk)
+                .addGap(33, 33, 33)
+                .addComponent(jBtnCancelar)
+                .addGap(22, 22, 22))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBtnOk)
+                    .addComponent(jBtnCancelar))
+                .addContainerGap())
+        );
 
         jLabel1.setText("Nome");
 
-        jLabel14.setText("Carteira de Trabalho");
-
-        cpf_tto.addActionListener(new java.awt.event.ActionListener() {
+        nome_tto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cpf_ttoActionPerformed(evt);
+                nome_ttoActionPerformed(evt);
             }
         });
 
-        carteiratrabalho_tto.addActionListener(new java.awt.event.ActionListener() {
+        jLabel2.setText("Celular");
+
+        celular_tto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                carteiratrabalho_ttoActionPerformed(evt);
+                celular_ttoActionPerformed(evt);
             }
         });
 
-        jLabel2.setText("Email");
-
-        jLabel15.setText("Endereço");
-
-        jLabel8.setText("Código");
+        jLabel3.setText("Email");
 
         email_tto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -240,16 +189,7 @@ public class JDlgFuncionariosNovoIA extends javax.swing.JDialog {
             }
         });
 
-        idfuncionarios_tto.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                idfuncionarios_ttoFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                idfuncionarios_ttoFocusLost(evt);
-            }
-        });
-
-        jLabel3.setText("Email Reserva");
+        jLabel4.setText("Email Reserva");
 
         emailReserva_tto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -257,175 +197,269 @@ public class JDlgFuncionariosNovoIA extends javax.swing.JDialog {
             }
         });
 
-        jLabel4.setText("Data de Nascimento");
+        jLabel5.setText("Cpf");
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPanel1.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
-
-        jBtnOk.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/ok.png"))); // NOI18N
-        jBtnOk.setText("OK");
-        jBtnOk.addActionListener(new java.awt.event.ActionListener() {
+        cpf_tto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnOkActionPerformed(evt);
+                cpf_ttoActionPerformed(evt);
             }
         });
-        jPanel1.add(jBtnOk);
 
-        jBtnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/cancelar_1.png"))); // NOI18N
-        jBtnCancelar.setText("CANCELAR");
-        jBtnCancelar.addActionListener(new java.awt.event.ActionListener() {
+        jLabel6.setText("Data de Nascimento");
+
+        dataNascimento_tto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnCancelarActionPerformed(evt);
+                dataNascimento_ttoActionPerformed(evt);
             }
         });
-        jPanel1.add(jBtnCancelar);
+
+        jLabel7.setText("Carteira de Trabalho");
+
+        carteiraTrabalho_tto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                carteiraTrabalho_ttoActionPerformed(evt);
+            }
+        });
+
+        jLabel8.setText("Bairro");
+
+        bairro_tto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bairro_ttoActionPerformed(evt);
+            }
+        });
+
+        jLabel9.setText("Cidade");
+
+        cidade_tto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cidade_ttoActionPerformed(evt);
+            }
+        });
+
+        jLabel10.setText("País");
+
+        pais_tto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pais_ttoActionPerformed(evt);
+            }
+        });
+
+        jLabel11.setText("Cep");
+
+        cep_tto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cep_ttoActionPerformed(evt);
+            }
+        });
+
+        jLabel12.setText("Telefone");
+
+        telefone_tto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                telefone_ttoActionPerformed(evt);
+            }
+        });
+
+        jLabel13.setText("Endereço");
+
+        endereco_tto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                endereco_ttoActionPerformed(evt);
+            }
+        });
+
+        jLabel14.setText("Código");
+
+        codigo_tto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                codigo_ttoActionPerformed(evt);
+            }
+        });
+
+        sexo_tto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel15.setText("Sexo");
+
+        ativo_tto.setText("Ativo");
+        ativo_tto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ativo_ttoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 769, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel14)
-                    .addComponent(carteiratrabalho_tto, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel10)
-                    .addComponent(jLabel11)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(nome_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(email_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(emailReserva_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5)
+                    .addComponent(cpf_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
-                    .addComponent(celular_tto)
-                    .addComponent(bairro_tto)
-                    .addComponent(cidade_tto)
-                    .addComponent(pais_tto))
-                .addGap(101, 101, 101)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(dataNascimento_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(55, 55, 55)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(celular_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10)
+                    .addComponent(pais_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9)
+                    .addComponent(cidade_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8)
+                    .addComponent(bairro_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7)
+                    .addComponent(carteiraTrabalho_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel11)
+                    .addComponent(cep_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12)
-                    .addComponent(idfuncionarios_tto)
-                    .addComponent(endereco_tto)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel13)
-                                .addGap(140, 140, 140))
-                            .addComponent(telefone_tto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jLabel15)
-                        .addComponent(jLabel8)
-                        .addComponent(jLabel5)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(sexo_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(28, 28, 28)
-                            .addComponent(ativo_tto)))
-                    .addComponent(cep_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(52, 52, 52))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(emailReserva_tto, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
-                        .addComponent(email_tto, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(dataNascimento_tto, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(nome_tto)
-                        .addComponent(cpf_tto))
-                    .addContainerGap(577, Short.MAX_VALUE)))
+                    .addComponent(telefone_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel13)
+                    .addComponent(endereco_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel14)
+                    .addComponent(codigo_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel15)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(sexo_tto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(ativo_tto)))
+                .addGap(89, 89, 89))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(celular_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel14)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(carteiratrabalho_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
-                        .addComponent(jLabel9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(bairro_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
-                        .addComponent(jLabel10)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cidade_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel11)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pais_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(71, 71, 71))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel12)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cep_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel13)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(telefone_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel15)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(endereco_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(idfuncionarios_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(21, 21, 21)
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(sexo_tto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(ativo_tto))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(12, 12, 12)
-                    .addComponent(jLabel1)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(nome_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel1)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(nome_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(jLabel2)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(email_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jLabel3)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(emailReserva_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jLabel7))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(137, 137, 137)
-                            .addComponent(cpf_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGap(16, 16, 16)
-                    .addComponent(jLabel4)
-                    .addGap(10, 10, 10)
-                    .addComponent(dataNascimento_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(127, Short.MAX_VALUE)))
+                            .addComponent(celular_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cep_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(email_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(carteiraTrabalho_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel12)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(telefone_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(emailReserva_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(bairro_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel13)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(endereco_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cpf_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cidade_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel14)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(codigo_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(dataNascimento_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel10)
+                            .addComponent(jLabel15))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(pais_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(sexo_tto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ativo_tto))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void nome_ttoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nome_ttoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nome_ttoActionPerformed
+
+    private void celular_ttoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_celular_ttoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_celular_ttoActionPerformed
+
+    private void email_ttoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_email_ttoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_email_ttoActionPerformed
+
+    private void emailReserva_ttoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailReserva_ttoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_emailReserva_ttoActionPerformed
+
+    private void cpf_ttoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cpf_ttoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cpf_ttoActionPerformed
+
+    private void dataNascimento_ttoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dataNascimento_ttoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_dataNascimento_ttoActionPerformed
+
+    private void carteiraTrabalho_ttoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_carteiraTrabalho_ttoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_carteiraTrabalho_ttoActionPerformed
+
+    private void bairro_ttoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bairro_ttoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bairro_ttoActionPerformed
+
     private void cidade_ttoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cidade_ttoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cidade_ttoActionPerformed
 
-    private void sexo_ttoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sexo_ttoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_sexo_ttoActionPerformed
-
     private void pais_ttoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pais_ttoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_pais_ttoActionPerformed
+
+    private void cep_ttoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cep_ttoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cep_ttoActionPerformed
 
     private void telefone_ttoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_telefone_ttoActionPerformed
         // TODO add your handling code here:
@@ -435,54 +469,28 @@ public class JDlgFuncionariosNovoIA extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_endereco_ttoActionPerformed
 
-    private void cep_ttoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cep_ttoActionPerformed
+    private void codigo_ttoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codigo_ttoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cep_ttoActionPerformed
+    }//GEN-LAST:event_codigo_ttoActionPerformed
 
     private void ativo_ttoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ativo_ttoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ativo_ttoActionPerformed
 
-    private void cpf_ttoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cpf_ttoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cpf_ttoActionPerformed
-
-    private void carteiratrabalho_ttoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_carteiratrabalho_ttoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_carteiratrabalho_ttoActionPerformed
-
-    private void email_ttoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_email_ttoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_email_ttoActionPerformed
-
-    private void idfuncionarios_ttoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_idfuncionarios_ttoFocusGained
-        // TODO add your handling code here:
-    }//GEN-LAST:event_idfuncionarios_ttoFocusGained
-
-    private void idfuncionarios_ttoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_idfuncionarios_ttoFocusLost
-        // TODO add your handling code here:
-    }//GEN-LAST:event_idfuncionarios_ttoFocusLost
-
-    private void emailReserva_ttoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailReserva_ttoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_emailReserva_ttoActionPerformed
-
     private void jBtnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnOkActionPerformed
-        setVisible(false);
-        funcionarios = viewBean();
-        Funcionarios_DAO funcionarios_DAO = new Funcionarios_DAO();
-        funcionarios_DAO.insert(funcionarios);
-        Util.mensagem("Adicionado com sucesso!");
-        Util.limparCampos(idfuncionarios_tto, nome_tto, email_tto, emailReserva_tto, cpf_tto,
-                dataNascimento_tto, celular_tto, carteiratrabalho_tto, bairro_tto, cidade_tto,
-                pais_tto, cep_tto, telefone_tto, endereco_tto, sexo_tto, ativo_tto);
         // TODO add your handling code here:
+        setVisible(false);
+
+        funcionariosTto = viewBean();
+        funcionarios_DAO = new Funcionarios_DAO();
+        funcionarios_DAO.insert(funcionariosTto);
+
+        Util.limparCampos();
     }//GEN-LAST:event_jBtnOkActionPerformed
 
     private void jBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelarActionPerformed
-        setVisible(false);
-        Util.mensagem("Cancelado!");
         // TODO add your handling code here:
+        setVisible(false);
     }//GEN-LAST:event_jBtnCancelarActionPerformed
 
     /**
@@ -512,8 +520,6 @@ public class JDlgFuncionariosNovoIA extends javax.swing.JDialog {
         }
         //</editor-fold>
         //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -533,16 +539,16 @@ public class JDlgFuncionariosNovoIA extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox ativo_tto;
     private javax.swing.JTextField bairro_tto;
-    private javax.swing.JFormattedTextField carteiratrabalho_tto;
-    private javax.swing.JFormattedTextField celular_tto;
-    private javax.swing.JFormattedTextField cep_tto;
+    private javax.swing.JTextField carteiraTrabalho_tto;
+    private javax.swing.JTextField celular_tto;
+    private javax.swing.JTextField cep_tto;
     private javax.swing.JTextField cidade_tto;
-    private javax.swing.JFormattedTextField cpf_tto;
-    private javax.swing.JFormattedTextField dataNascimento_tto;
+    private javax.swing.JTextField codigo_tto;
+    private javax.swing.JTextField cpf_tto;
+    private javax.swing.JTextField dataNascimento_tto;
     private javax.swing.JTextField emailReserva_tto;
     private javax.swing.JTextField email_tto;
     private javax.swing.JTextField endereco_tto;
-    private javax.swing.JTextField idfuncionarios_tto;
     private javax.swing.JButton jBtnCancelar;
     private javax.swing.JButton jBtnOk;
     private javax.swing.JLabel jLabel1;
@@ -564,6 +570,6 @@ public class JDlgFuncionariosNovoIA extends javax.swing.JDialog {
     private javax.swing.JTextField nome_tto;
     private javax.swing.JTextField pais_tto;
     private javax.swing.JComboBox<String> sexo_tto;
-    private javax.swing.JFormattedTextField telefone_tto;
+    private javax.swing.JTextField telefone_tto;
     // End of variables declaration//GEN-END:variables
 }
