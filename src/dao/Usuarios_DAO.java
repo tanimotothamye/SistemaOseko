@@ -60,4 +60,16 @@ public class Usuarios_DAO extends DAO_Abstract {
         session.getTransaction().commit();
         return lista;
     }
+    
+    public UsuariosTto login(String usuario, String senha){
+    session.beginTransaction();
+    Criteria criteria = session.createCriteria(UsuariosTto.class);
+    criteria.add(Restrictions.eq("nicknameTto", usuario));
+    criteria.add(Restrictions.eq("senhaTto", senha));
+    UsuariosTto usuariosLogin = (UsuariosTto) criteria.uniqueResult();
+    session.getTransaction().commit();
+    
+    return  usuariosLogin;
+    }
+    
 }

@@ -17,13 +17,14 @@ import tools.Util;
 
 /**
  *
- * @author TATY
+ * @author tate
  */
 public class JDlgFuncionariosNovoIA extends javax.swing.JDialog {
 
     FuncionariosTto funcionariosTto;
     Funcionarios_DAO funcionarios_DAO;
-    MaskFormatter mascaraCPF, mascaraDataNascimento, mascaraTelefone, mascaraCEP, mascaraCep, mascaraCelular;
+
+    MaskFormatter mascaraCPF, mascaraDataNascimento, mascaraCarteiraTrabalho, mascaraTelefone, mascaraCEP, mascaraCelular;
 
     /**
      * Creates new form JDlgFuncionariosNovoIA
@@ -34,7 +35,25 @@ public class JDlgFuncionariosNovoIA extends javax.swing.JDialog {
         setTitle("Inclusão de Funcionários");
         setLocationRelativeTo(null);
         funcionarios_DAO = new Funcionarios_DAO();
-        
+
+        try {
+            mascaraCPF = new MaskFormatter("###.###.###-##");
+            mascaraCEP = new MaskFormatter("#####-###");
+            mascaraCarteiraTrabalho = new MaskFormatter("#######/####");
+            mascaraDataNascimento = new MaskFormatter("##/##/####");
+            mascaraCelular = new MaskFormatter("(##)#####-####");
+            mascaraTelefone = new MaskFormatter("(##)#####-####");
+
+        } catch (ParseException ex) {
+            Logger.getLogger(JDlgFuncionariosNovoIA.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        cpf_tto.setFormatterFactory(new DefaultFormatterFactory(mascaraCPF));
+        cep_tto.setFormatterFactory(new DefaultFormatterFactory(mascaraCEP));
+        carteiraTrabalho_tto.setFormatterFactory(new DefaultFormatterFactory(mascaraCarteiraTrabalho));
+        dataNascimento_tto.setFormatterFactory(new DefaultFormatterFactory(mascaraDataNascimento));
+        celular_tto.setFormatterFactory(new DefaultFormatterFactory(mascaraCelular));
+        telefone_tto.setFormatterFactory(new DefaultFormatterFactory(mascaraCelular));
+
     }
 
     public FuncionariosTto viewBean() {
@@ -53,9 +72,14 @@ public class JDlgFuncionariosNovoIA extends javax.swing.JDialog {
         funcionariosTto.setCepTto(cep_tto.getText());
         funcionariosTto.setEnderecoTto(endereco_tto.getText());
         funcionariosTto.setSexoTto(sexo_tto.getSelectedIndex());
-        funcionariosTto.setAtivoTto(ativo_tto.getText());
         funcionariosTto.setCarteiratrabalhoTto(carteiraTrabalho_tto.getText());
-
+        
+        if (ativo_tto.isSelected() == true) {
+            funcionariosTto.setAtivoTto("S");
+        } else {
+            funcionariosTto.setAtivoTto("N");
+        }
+        
         return funcionariosTto;
 
     }
@@ -75,8 +99,13 @@ public class JDlgFuncionariosNovoIA extends javax.swing.JDialog {
         cep_tto.setText(funcionariosTto.getCepTto());
         endereco_tto.setText(funcionariosTto.getEnderecoTto());
         sexo_tto.setToolTipText(Util.intStr(funcionariosTto.getSexoTto()));
-        ativo_tto.setText(funcionariosTto.getAtivoTto());
         carteiraTrabalho_tto.setText(funcionariosTto.getCarteiratrabalhoTto());
+        
+        if (funcionariosTto.getAtivoTto().equals("S") == true) {
+            ativo_tto.setSelected(true);
+        } else {
+            ativo_tto.setSelected(false);
+        }
 
     }
 
@@ -95,17 +124,13 @@ public class JDlgFuncionariosNovoIA extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         nome_tto = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        celular_tto = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         email_tto = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         emailReserva_tto = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        cpf_tto = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        dataNascimento_tto = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        carteiraTrabalho_tto = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         bairro_tto = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
@@ -113,9 +138,7 @@ public class JDlgFuncionariosNovoIA extends javax.swing.JDialog {
         jLabel10 = new javax.swing.JLabel();
         pais_tto = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
-        cep_tto = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
-        telefone_tto = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         endereco_tto = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
@@ -123,6 +146,12 @@ public class JDlgFuncionariosNovoIA extends javax.swing.JDialog {
         sexo_tto = new javax.swing.JComboBox<>();
         jLabel15 = new javax.swing.JLabel();
         ativo_tto = new javax.swing.JCheckBox();
+        cpf_tto = new javax.swing.JFormattedTextField();
+        dataNascimento_tto = new javax.swing.JFormattedTextField();
+        celular_tto = new javax.swing.JFormattedTextField();
+        cep_tto = new javax.swing.JFormattedTextField();
+        telefone_tto = new javax.swing.JFormattedTextField();
+        carteiraTrabalho_tto = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -167,126 +196,37 @@ public class JDlgFuncionariosNovoIA extends javax.swing.JDialog {
 
         jLabel1.setText("Nome");
 
-        nome_tto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nome_ttoActionPerformed(evt);
-            }
-        });
-
         jLabel2.setText("Celular");
-
-        celular_tto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                celular_ttoActionPerformed(evt);
-            }
-        });
 
         jLabel3.setText("Email");
 
-        email_tto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                email_ttoActionPerformed(evt);
-            }
-        });
-
         jLabel4.setText("Email Reserva");
-
-        emailReserva_tto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                emailReserva_ttoActionPerformed(evt);
-            }
-        });
 
         jLabel5.setText("Cpf");
 
-        cpf_tto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cpf_ttoActionPerformed(evt);
-            }
-        });
-
         jLabel6.setText("Data de Nascimento");
-
-        dataNascimento_tto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dataNascimento_ttoActionPerformed(evt);
-            }
-        });
 
         jLabel7.setText("Carteira de Trabalho");
 
-        carteiraTrabalho_tto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                carteiraTrabalho_ttoActionPerformed(evt);
-            }
-        });
-
         jLabel8.setText("Bairro");
-
-        bairro_tto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bairro_ttoActionPerformed(evt);
-            }
-        });
 
         jLabel9.setText("Cidade");
 
-        cidade_tto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cidade_ttoActionPerformed(evt);
-            }
-        });
-
         jLabel10.setText("País");
-
-        pais_tto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pais_ttoActionPerformed(evt);
-            }
-        });
 
         jLabel11.setText("Cep");
 
-        cep_tto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cep_ttoActionPerformed(evt);
-            }
-        });
-
         jLabel12.setText("Telefone");
-
-        telefone_tto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                telefone_ttoActionPerformed(evt);
-            }
-        });
 
         jLabel13.setText("Endereço");
 
-        endereco_tto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                endereco_ttoActionPerformed(evt);
-            }
-        });
-
         jLabel14.setText("Código");
-
-        codigo_tto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                codigo_ttoActionPerformed(evt);
-            }
-        });
 
         sexo_tto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel15.setText("Sexo");
 
         ativo_tto.setText("Ativo");
-        ativo_tto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ativo_ttoActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -296,20 +236,20 @@ public class JDlgFuncionariosNovoIA extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(nome_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)
-                    .addComponent(email_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4)
-                    .addComponent(emailReserva_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel1)
+                        .addComponent(nome_tto, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                        .addComponent(jLabel3)
+                        .addComponent(email_tto, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                        .addComponent(jLabel4)
+                        .addComponent(emailReserva_tto, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                        .addComponent(jLabel5)
+                        .addComponent(jLabel6))
                     .addComponent(cpf_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6)
                     .addComponent(dataNascimento_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(55, 55, 55)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
-                    .addComponent(celular_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10)
                     .addComponent(pais_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9)
@@ -317,13 +257,12 @@ public class JDlgFuncionariosNovoIA extends javax.swing.JDialog {
                     .addComponent(jLabel8)
                     .addComponent(bairro_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7)
+                    .addComponent(celular_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(carteiraTrabalho_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel11)
-                    .addComponent(cep_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12)
-                    .addComponent(telefone_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel13)
                     .addComponent(endereco_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel14)
@@ -332,7 +271,9 @@ public class JDlgFuncionariosNovoIA extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(sexo_tto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(ativo_tto)))
+                        .addComponent(ativo_tto))
+                    .addComponent(cep_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(telefone_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(89, 89, 89))
         );
         layout.setVerticalGroup(
@@ -344,15 +285,14 @@ public class JDlgFuncionariosNovoIA extends javax.swing.JDialog {
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(jLabel1)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(nome_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(nome_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(celular_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cep_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(jLabel2)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(celular_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel11)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cep_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGap(34, 34, 34)))
+                    .addComponent(jLabel11))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -362,11 +302,10 @@ public class JDlgFuncionariosNovoIA extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(carteiraTrabalho_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel12)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(telefone_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(telefone_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(carteiraTrabalho_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel12))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -383,14 +322,13 @@ public class JDlgFuncionariosNovoIA extends javax.swing.JDialog {
                         .addComponent(endereco_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cpf_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel5)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cidade_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cidade_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cpf_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel14)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -417,75 +355,12 @@ public class JDlgFuncionariosNovoIA extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void nome_ttoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nome_ttoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nome_ttoActionPerformed
-
-    private void celular_ttoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_celular_ttoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_celular_ttoActionPerformed
-
-    private void email_ttoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_email_ttoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_email_ttoActionPerformed
-
-    private void emailReserva_ttoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailReserva_ttoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_emailReserva_ttoActionPerformed
-
-    private void cpf_ttoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cpf_ttoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cpf_ttoActionPerformed
-
-    private void dataNascimento_ttoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dataNascimento_ttoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_dataNascimento_ttoActionPerformed
-
-    private void carteiraTrabalho_ttoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_carteiraTrabalho_ttoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_carteiraTrabalho_ttoActionPerformed
-
-    private void bairro_ttoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bairro_ttoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_bairro_ttoActionPerformed
-
-    private void cidade_ttoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cidade_ttoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cidade_ttoActionPerformed
-
-    private void pais_ttoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pais_ttoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_pais_ttoActionPerformed
-
-    private void cep_ttoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cep_ttoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cep_ttoActionPerformed
-
-    private void telefone_ttoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_telefone_ttoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_telefone_ttoActionPerformed
-
-    private void endereco_ttoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_endereco_ttoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_endereco_ttoActionPerformed
-
-    private void codigo_ttoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codigo_ttoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_codigo_ttoActionPerformed
-
-    private void ativo_ttoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ativo_ttoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ativo_ttoActionPerformed
-
     private void jBtnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnOkActionPerformed
-        // TODO add your handling code here:
-        setVisible(false);
 
         funcionariosTto = viewBean();
-        funcionarios_DAO = new Funcionarios_DAO();
         funcionarios_DAO.insert(funcionariosTto);
-
-        Util.limparCampos();
+        
+        setVisible(false);
     }//GEN-LAST:event_jBtnOkActionPerformed
 
     private void jBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelarActionPerformed
@@ -539,13 +414,13 @@ public class JDlgFuncionariosNovoIA extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox ativo_tto;
     private javax.swing.JTextField bairro_tto;
-    private javax.swing.JTextField carteiraTrabalho_tto;
-    private javax.swing.JTextField celular_tto;
-    private javax.swing.JTextField cep_tto;
+    private javax.swing.JFormattedTextField carteiraTrabalho_tto;
+    private javax.swing.JFormattedTextField celular_tto;
+    private javax.swing.JFormattedTextField cep_tto;
     private javax.swing.JTextField cidade_tto;
     private javax.swing.JTextField codigo_tto;
-    private javax.swing.JTextField cpf_tto;
-    private javax.swing.JTextField dataNascimento_tto;
+    private javax.swing.JFormattedTextField cpf_tto;
+    private javax.swing.JFormattedTextField dataNascimento_tto;
     private javax.swing.JTextField emailReserva_tto;
     private javax.swing.JTextField email_tto;
     private javax.swing.JTextField endereco_tto;
@@ -570,6 +445,6 @@ public class JDlgFuncionariosNovoIA extends javax.swing.JDialog {
     private javax.swing.JTextField nome_tto;
     private javax.swing.JTextField pais_tto;
     private javax.swing.JComboBox<String> sexo_tto;
-    private javax.swing.JTextField telefone_tto;
+    private javax.swing.JFormattedTextField telefone_tto;
     // End of variables declaration//GEN-END:variables
 }
