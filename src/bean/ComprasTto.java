@@ -2,6 +2,7 @@ package bean;
 // Generated Sep 22, 2023 8:43:48 PM by Hibernate Tools 4.3.1
 
 
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -23,14 +24,14 @@ public class ComprasTto  implements java.io.Serializable {
      private int idcomprasTto;
      private FornecedoresTto fornecedoresTto;
      private FuncionariosTto funcionariosTto;
-     private String dataTto;
+     private Date dataTto;
      private double totalTto;
 
     public ComprasTto() {
     }
 
 	
-    public ComprasTto(int idcomprasTto, FornecedoresTto fornecedoresTto, FuncionariosTto funcionariosTto, String dataTto, double totalTto) {
+    public ComprasTto(int idcomprasTto, FornecedoresTto fornecedoresTto, FuncionariosTto funcionariosTto, Date dataTto, double totalTto) {
         this.idcomprasTto = idcomprasTto;
         this.fornecedoresTto = fornecedoresTto;
         this.funcionariosTto = funcionariosTto;
@@ -72,11 +73,11 @@ public class ComprasTto  implements java.io.Serializable {
 
     
     @Column(name="data_tto", nullable=false, length=45)
-    public String getDataTto() {
+    public Date getDataTto() {
         return this.dataTto;
     }
     
-    public void setDataTto(String dataTto) {
+    public void setDataTto(Date dataTto) {
         this.dataTto = dataTto;
     }
 

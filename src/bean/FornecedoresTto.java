@@ -97,6 +97,12 @@ public class FornecedoresTto  implements java.io.Serializable {
     public void setEnderecoCompletoTto(String enderecoCompletoTto) {
         this.enderecoCompletoTto = enderecoCompletoTto;
     }
+    
+    @Override
+    public String toString(){
+        return getNomeTto();
+    }
+    
 }
 
 

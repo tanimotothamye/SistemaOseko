@@ -139,11 +139,11 @@ public class JDlgConsultaUsuarios extends javax.swing.JDialog {
 
     private void jBtnConsulta_ttoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConsulta_ttoActionPerformed
         // TODO add your handling code here:
-        if (jTxtConsultaUsuarios_tto.getText().equals("") && jTxtConsultaUsuarios_tto.getText().equals("")) {
+        if (jTxtConsultaUsuarios_tto.getText().equals("") && jTxtConsultaCpf_tto.getText().equals("")) {
             List lista = usuarios_DAO.listAll();
             usuariosControle.setList(lista);
         } else {
-            if (!jTxtConsultaUsuarios_tto.getText().equals("") && !jTxtConsultaUsuarios_tto.getText().equals("")) {
+            if (!jTxtConsultaUsuarios_tto.getText().equals("") && !jTxtConsultaCpf_tto.getText().equals("")) {
                 List lista = usuarios_DAO.listNomeCpf(jTxtConsultaUsuarios_tto.getText(), jTxtConsultaCpf_tto.getText());
                 usuariosControle.setList(lista);
             } else {
