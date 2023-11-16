@@ -109,13 +109,5 @@ public class Usuarios_DAO extends DAO_Abstract {
         return lista;
 
     }
-
-    public static void main(String[] args) {
-        Usuarios_DAO usuarios_DAO = new Usuarios_DAO();
-        List lista = usuarios_DAO.listAll();
-        for (Object usuarios : lista) {
-            System.out.println("nome:" + ((UsuariosTto) usuarios).getNomeTto());
-        }
     }
 
-}
