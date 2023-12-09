@@ -47,7 +47,7 @@ public class Funcionarios_DAO extends DAO_Abstract {
     public Object list(int id) {
         session.beginTransaction();
         Criteria criteria = session.createCriteria(FuncionariosTto.class);
-        criteria.add(Restrictions.eq("drfIdcompraProduto", id));
+        criteria.add(Restrictions.eq("IdcomprasProdutos", id));
         List lista = criteria.list();
         session.getTransaction().commit();
         return lista;
@@ -65,8 +65,7 @@ public class Funcionarios_DAO extends DAO_Abstract {
     public List listNomeTto(String nomeTto) {
         session.beginTransaction();
         Criteria criteria = session.createCriteria(FuncionariosTto.class);
-//      criteria.add(Restrictions.like("nome", +nome+;
-        criteria.add(Restrictions.like("nomeTto", nomeTto, MatchMode.ANYWHERE));
+        criteria.add(Restrictions.like("nomeTto", "%" + nomeTto + "%"));
         List lista = criteria.list();
         session.getTransaction().commit();
 
@@ -77,7 +76,7 @@ public class Funcionarios_DAO extends DAO_Abstract {
     public List listData(Date dataNascimentoTto) {
         session.beginTransaction();
         Criteria criteria = session.createCriteria(FuncionariosTto.class);
-        criteria.add(Restrictions.eq("dataNascimentoTto", dataNascimentoTto));
+        criteria.add(Restrictions.eq("dataNascimentoTto", dataNascimentoTto ));
         List lista = criteria.list();
         session.getTransaction().commit();
         return lista;

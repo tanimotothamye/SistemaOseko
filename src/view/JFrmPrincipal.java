@@ -118,8 +118,9 @@ public class JFrmPrincipal extends javax.swing.JFrame {
         });
         jToolBar1.add(jBtnTBInclusaoProdutos);
 
-        jBtnTBFornecedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/package_box_10801.png"))); // NOI18N
-        jBtnTBFornecedores.setText("Fornecedores");
+        jBtnTBFornecedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/sale_icon-icons.com_51018.png"))); // NOI18N
+        jBtnTBFornecedores.setText("Consulta de Compras");
+        jBtnTBFornecedores.setToolTipText("");
         jBtnTBFornecedores.setFocusable(false);
         jBtnTBFornecedores.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBtnTBFornecedores.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -329,8 +330,8 @@ public class JFrmPrincipal extends javax.swing.JFrame {
 
     private void jBtnTBFornecedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnTBFornecedoresActionPerformed
         // TODO add your handling code here:
-        JDlgFornecedores jDlgFornecedoresNovo = new JDlgFornecedores(null, true);
-        jDlgFornecedoresNovo.setVisible(true);
+        JDlgConsultaCompras jDlgConsultaCompras = new JDlgConsultaCompras(null, true);
+        jDlgConsultaCompras.setVisible(true);
     }//GEN-LAST:event_jBtnTBFornecedoresActionPerformed
 
     private void jBtnTBProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnTBProdutosActionPerformed
@@ -370,8 +371,8 @@ public class JFrmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMnuComprasConsultaActionPerformed
 
     private void jBtnTBComprasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnTBComprasActionPerformed
-        JDlgUsuarios jDlgUsuarios = new JDlgUsuarios(null, true);
-        jDlgUsuarios.setVisible(true);
+        JDlgCompras jDlgCompras = new JDlgCompras(null, true);
+        jDlgCompras.setVisible(true);
     }//GEN-LAST:event_jBtnTBComprasActionPerformed
 
     private void jBtnTBSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnTBSairActionPerformed

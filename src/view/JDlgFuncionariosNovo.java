@@ -20,7 +20,7 @@ public class JDlgFuncionariosNovo extends javax.swing.JDialog {
     FuncionariosControle funcionariosControle;
     Funcionarios_DAO funcionarios_DAO;
     FuncionariosTto funcionariosTto;
-    
+
     /**
      * Creates new form JDlgFuncionariosNovo1
      */
@@ -30,10 +30,10 @@ public class JDlgFuncionariosNovo extends javax.swing.JDialog {
         jDlgFuncionariosNovoIA = new JDlgFuncionariosNovoIA(null, true);
         setTitle("Cadastro de Funcionários");
         setLocationRelativeTo(null);
-        
+
         funcionariosControle = new FuncionariosControle();
         funcionarios_DAO = new Funcionarios_DAO();
-        
+
         List lista = funcionarios_DAO.listAll();
         funcionariosControle.setList(lista);
         jTable1.setModel(funcionariosControle);
@@ -140,14 +140,14 @@ public class JDlgFuncionariosNovo extends javax.swing.JDialog {
 
     private void jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirActionPerformed
         // TODO add your handling code here:
-        if (Util.perguntar("Deseja excluir o funcionário?") == true){
-        int sel = jTable1.getSelectedRow();
-        funcionariosTto = funcionariosControle.getBean(sel);
-        funcionarios_DAO.delete(funcionariosTto);
-        
-        List lista = funcionarios_DAO.listAll();
-        funcionariosControle.setList(lista);
-        } else{
+        if (Util.perguntar("Deseja excluir o funcionário?") == true) {
+            int sel = jTable1.getSelectedRow();
+            funcionariosTto = funcionariosControle.getBean(sel);
+            funcionarios_DAO.delete(funcionariosTto);
+
+            List lista = funcionarios_DAO.listAll();
+            funcionariosControle.setList(lista);
+        } else {
             Util.mensagem("Exclusão cancelada");
         }
     }//GEN-LAST:event_jBtnExcluirActionPerformed
@@ -156,7 +156,7 @@ public class JDlgFuncionariosNovo extends javax.swing.JDialog {
         // TODO add your handling code here:
         jDlgFuncionariosNovoIA.setTitle("Inclusão");
         jDlgFuncionariosNovoIA.setVisible(true);
-        
+
         List lista = funcionarios_DAO.listAll();
         funcionariosControle.setList(lista);
         jTable1.setModel(funcionariosControle);
@@ -164,6 +164,15 @@ public class JDlgFuncionariosNovo extends javax.swing.JDialog {
 
     private void jBtnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarActionPerformed
         // TODO add your handling code here:
+        jDlgFuncionariosNovoIA.setTitle("Alterar");
+
+        int sel = jTable1.getSelectedRow();
+        FuncionariosTto funcionariosTto = funcionariosControle.getBean(sel);
+        jDlgFuncionariosNovoIA.beanView(funcionariosTto);
+
+        jDlgFuncionariosNovoIA.setVisible(true);
+        List lista = funcionarios_DAO.listAll();
+        funcionariosControle.setList(lista);
     }//GEN-LAST:event_jBtnAlterarActionPerformed
 
     /**

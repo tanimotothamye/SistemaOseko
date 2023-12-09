@@ -13,7 +13,7 @@ import org.hibernate.SessionFactory;
 /**
  *
  
-@author u07875424151*/
+@author tate*/
 public abstract class DAO_Abstract {
 
     Session session;

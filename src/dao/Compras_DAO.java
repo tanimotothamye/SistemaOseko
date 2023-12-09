@@ -13,7 +13,7 @@ import org.hibernate.criterion.Restrictions;
 
 /**
  *
- * @author rafae
+ * @author tate
  */
 public class Compras_DAO extends DAO_Abstract {
 
@@ -73,17 +73,17 @@ public class Compras_DAO extends DAO_Abstract {
     public List listTotalTto(double totalTto) {
         session.beginTransaction();
         Criteria criteria = session.createCriteria(ComprasTto.class);
-        criteria.add(Restrictions.eq("totalTto", totalTto));
+        criteria.add(Restrictions.ge("totalTto", new Double(totalTto)));
         List lista = criteria.list();
         session.getTransaction().commit();
         return lista;
     }
 
-    public List listNomeTotal(String nomeTto, double totalTto) {
+    public List listDataTotal(Date dataTto, double totalTto) {
         session.beginTransaction();
         Criteria criteria = session.createCriteria(ComprasTto.class);
-        criteria.add(Restrictions.eq("nomeTto", nomeTto));
-        criteria.add(Restrictions.eq("totalTto", totalTto));
+        criteria.add(Restrictions.eq("dataTto", dataTto));
+        criteria.add(Restrictions.ge("totalTto", new Double(totalTto)));
         List lista = criteria.list();
         session.getTransaction().commit();
         return lista;

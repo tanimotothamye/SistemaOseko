@@ -64,29 +64,30 @@ public class Produtos_DAO extends DAO_Abstract {
     public List listNomeTto(String nomeTto) {
         session.beginTransaction();
         Criteria criteria = session.createCriteria(ProdutosTto.class);
-//      criteria.add(Restrictions.like("nome", +nome+;
+        criteria.add(Restrictions.like("nomeTto", "%" + nomeTto +"%"));
+        List lista = criteria.list();
+        session.getTransaction().commit();
+
+        return lista;
+
+    }
+    
+        public List listValorUnitarioTto(double valorUnitarioTto) {
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(ProdutosTto.class);
+        criteria.add(Restrictions.ge("valorUnitarioTto", new Double(valorUnitarioTto)));
+        List lista = criteria.list();
+        session.getTransaction().commit();
+
+        return lista;
+
+    }
+
+    public List listNomeValorUnitario(String nomeTto, double valorUnitarioTto) {
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(ProdutosTto.class);
         criteria.add(Restrictions.like("nomeTto", nomeTto, MatchMode.ANYWHERE));
-        List lista = criteria.list();
-        session.getTransaction().commit();
-
-        return lista;
-
-    }
-
-    public List listValorCompraTto(double valorCompraTto) {
-        session.beginTransaction();
-        Criteria criteria = session.createCriteria(ProdutosTto.class);
-        criteria.add(Restrictions.eq("valorCompraTto", valorCompraTto));
-        List lista = criteria.list();
-        session.getTransaction().commit();
-        return lista;
-    }
-
-    public List listNomeValorCompra(String nomeTto, double valorCompraTto) {
-        session.beginTransaction();
-        Criteria criteria = session.createCriteria(ProdutosTto.class);
-        criteria.add(Restrictions.eq("nomeTto", nomeTto));
-        criteria.add(Restrictions.eq("valorCompraTto", valorCompraTto));
+        criteria.add(Restrictions.ge("valorUnitarioTto", new Double(valorUnitarioTto)));
         List lista = criteria.list();
         session.getTransaction().commit();
         return lista;

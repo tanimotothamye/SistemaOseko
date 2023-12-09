@@ -5,78 +5,119 @@
  */
 package view;
 
+import bean.ComprasProdutosTto;
 import bean.ComprasTto;
 import bean.FornecedoresTto;
+import bean.FuncionariosTto;
+import dao.ComprasProdutos_DAO;
 import dao.Compras_DAO;
 import dao.Fornecedores_DAO;
+import dao.Funcionarios_DAO;
+import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.text.DefaultFormatterFactory;
+import javax.swing.text.MaskFormatter;
 import tools.Util;
 
 /**
  *
- * @author u10475493109
+ * @author tate
  */
 public class JDlgCompras extends javax.swing.JDialog {
 
+    MaskFormatter mascaraData;
+
     private boolean incluindo;
-    JDlgComprasProdutos jDlgComprasProdutos;
     Compras_DAO compras_DAO;
-    ComprasTto comprasTto;
+    ComprasTto compras;
+    ComprasProdutosControle comprasProdutosControle;
     ComprasControle comprasControle;
-    Fornecedores_DAO fornecedores_DAO;
+    JDlgComprasProdutos jDlgComprasProdutos;
 
     /**
      * Creates new form JDlgPedidos
      */
     public JDlgCompras(java.awt.Frame parent, boolean modal) {
+
         super(parent, modal);
         initComponents();
-        setTitle("Tela de pedidos");
+        jDlgComprasProdutos = new JDlgComprasProdutos(null, true);
+        setTitle("Tela de Compras");
         setLocationRelativeTo(null);
+        compras_DAO = new Compras_DAO();
+        compras = new ComprasTto();
+        ComprasProdutos_DAO comprasProdutos_DAO = new ComprasProdutos_DAO();
+        List lista = new ArrayList();
+        comprasProdutosControle = new ComprasProdutosControle();
+        comprasProdutosControle.setList(lista);
+        jTable1.setModel(comprasProdutosControle);
 
-        fornecedores_DAO = new Fornecedores_DAO();
-        
-        /*
-        List lista = fornecedores_DAO.listAll();
-        for (int i = 0; i < lista.size(); i++) {
-            FornecedoresTto fornecedoresTto = (FornecedoresTto) lista.get(i);
-            jCboFornecedor_tto.addItem(fornecedoresTto);
+        Util.habilitar(true, jBtnIncluir, jBtnPesquisar);
+        Util.habilitar(false, jBtnIncluirLateral, jBtnAlterarLateral, jBtnExcluirLateral,
+                jBtnConfirmar, jBtnCancelar, jBtnAlterar, jBtnExcluir,
+                jTxtNumPedido_tto, jFmtData_tto, jCboFornecedor_tto, jCboFuncionario_tto,
+                jTxtTotal_tto);
+
+        //AAAAAAAAA
+        Fornecedores_DAO fornecedores_DAO = new Fornecedores_DAO();
+        List listaFornecedores = fornecedores_DAO.listAll();
+
+        for (int i = 0; i < listaFornecedores.size(); i++) {
+            FornecedoresTto fornecedores = (FornecedoresTto) listaFornecedores.get(i);
+            jCboFornecedor_tto.addItem(fornecedores);
         }
 
-        */
-        
-        jDlgComprasProdutos = new JDlgComprasProdutos(null, true);
+        //BBBBBBBBBB
+        Funcionarios_DAO funcionarios_DAO = new Funcionarios_DAO();
+        List listaFuncionarios = funcionarios_DAO.listAll();
 
-        Util.habilitar(true, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
-        Util.habilitar(false, jTxtNumPedido_tto, jFmtData_tto, jCboFornecedor_tto, jCboFuncionario_tto,
-                jTxtTotal_tto, jBtnIncluirLateral, jBtnAlterarLateral, jBtnExcluirLateral,
-                jBtnConfirmar, jBtnCancelar);
+        for (int i = 0; i < listaFuncionarios.size(); i++) {
+            FuncionariosTto funcionarios = (FuncionariosTto) listaFuncionarios.get(i);
+            jCboFuncionario_tto.addItem(funcionarios);
+        }
+
+        try {
+            mascaraData = new MaskFormatter("##/##/####");
+        } catch (ParseException ex) {
+            Logger.getLogger(JDlgUsuarios.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        jFmtData_tto.setFormatterFactory(new DefaultFormatterFactory(mascaraData));
 
     }
 
-    /*
     public ComprasTto viewBean() {
-        ComprasTto comprasTto = new ComprasTto();
+        ComprasTto compras = new ComprasTto();
 
-        comprasTto.setIdcomprasTto(Util.strInt(jTxtNumPedido_tto.getText()));
-        //comprasTto.setFornecedoresTto(jCboFornecedor_tto.getSelectedIndex());
-        //comprasTto.setFuncionariosTto(jCboFuncionario_tto.getSelectedIndex());
-        comprasTto.setDataTto(Util.strDate(jFmtData_tto.getText()));
-        comprasTto.setTotalTto(Util.strDouble(jTxtTotal_tto.getText()));
+        compras.setIdcomprasTto(Util.strInt(jTxtNumPedido_tto.getText()));
+        compras.setFornecedoresTto((FornecedoresTto) jCboFornecedor_tto.getSelectedItem());
+        compras.setFuncionariosTto((FuncionariosTto) jCboFuncionario_tto.getSelectedItem());
+        compras.setDataTto(Util.strDate(jFmtData_tto.getText()));
+        compras.setTotalTto(Util.strDouble(jTxtTotal_tto.getText()));
 
-        return comprasTto;
+        return compras;
     }
 
-    public void beanView(ComprasTto comprasTto) {
+    public void beanView(ComprasTto compras) {
 
-        jTxtNumPedido_tto.setText(Util.intStr(comprasTto.getIdcomprasTto()));
-        //jCboFornecedor_tto.setSelectedIndex(comprasTto.getFornecedoresTto());
-        //jCboFuncionario_tto.setSelectedIndex(comprasTto.getFuncionariosTto());
-        jFmtData_tto.setText(Util.dateStr(comprasTto.getDataTto()));
-        jTxtTotal_tto.setText(Util.doubleStr(comprasTto.getTotalTto()));
+        jTxtNumPedido_tto.setText(Util.intStr(compras.getIdcomprasTto()));
+        jCboFornecedor_tto.setSelectedItem(compras.getFornecedoresTto());
+        jCboFuncionario_tto.setSelectedItem(compras.getFuncionariosTto());
+        jFmtData_tto.setText(Util.dateStr(compras.getDataTto()));
+        jTxtTotal_tto.setText(Util.doubleStr(compras.getTotalTto()));
 
+        ComprasProdutos_DAO comprasProdutos_DAO = new ComprasProdutos_DAO();
+        List listaProd = (List) comprasProdutos_DAO.listProdutos(compras);
+
+        comprasProdutosControle.setList(listaProd);
     }
-     */
+
+    public int getSelectedRowProd() {
+        return jTable1.getSelectedRow();
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -105,7 +146,7 @@ public class JDlgCompras extends javax.swing.JDialog {
         jTxtTotal_tto = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jCboFornecedor_tto = new javax.swing.JComboBox<String>();
+        jCboFornecedor_tto = new javax.swing.JComboBox<FornecedoresTto>();
         jLabel6 = new javax.swing.JLabel();
         jCboFuncionario_tto = new javax.swing.JComboBox<>();
 
@@ -217,9 +258,19 @@ public class JDlgCompras extends javax.swing.JDialog {
 
         jBtnAlterarLateral.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/alterar_1.png"))); // NOI18N
         jBtnAlterarLateral.setText("Alterar");
+        jBtnAlterarLateral.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnAlterarLateralActionPerformed(evt);
+            }
+        });
 
         jBtnExcluirLateral.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Excluir_1.png"))); // NOI18N
         jBtnExcluirLateral.setText("Excluir");
+        jBtnExcluirLateral.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnExcluirLateralActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("NumPedido");
 
@@ -229,15 +280,7 @@ public class JDlgCompras extends javax.swing.JDialog {
 
         jLabel5.setText("Fornecedor");
 
-        jCboFornecedor_tto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCboFornecedor_ttoActionPerformed(evt);
-            }
-        });
-
         jLabel6.setText("Funcionário");
-
-        jCboFuncionario_tto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -323,83 +366,142 @@ public class JDlgCompras extends javax.swing.JDialog {
 
     private void jBtnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarActionPerformed
         // TODO add your handling code here:
+        if (compras != null) {
+            ComprasProdutos_DAO comprasProdutos_DAO = new ComprasProdutos_DAO();
+            ComprasProdutosTto comprasProdutosTto;
+            for (int linha = 0; linha < jTable1.getRowCount(); linha++) {
+                comprasProdutosTto = comprasProdutosControle.getBean(linha);
+                comprasProdutos_DAO.delete(comprasProdutosTto);
 
-        Util.habilitar(true, jTxtNumPedido_tto, jFmtData_tto, jCboFornecedor_tto, jCboFornecedor_tto, jTxtTotal_tto,
-                jBtnIncluirLateral, jBtnAlterarLateral, jBtnExcluirLateral,
-                jBtnConfirmar, jBtnCancelar);
+            }
+        } else {
+            Util.mensagem("Realize uma pesquisa antes");
+        }
+        incluindo = false;
         Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+        Util.habilitar(true, jTxtNumPedido_tto, jFmtData_tto, jCboFornecedor_tto, jCboFuncionario_tto, jTxtTotal_tto,
+                jBtnConfirmar, jBtnCancelar, jBtnIncluirLateral, jBtnAlterarLateral, jBtnExcluirLateral);
+
+        // NAO ESTA COM LOGICA E NAO SEI O MOTIVO
     }//GEN-LAST:event_jBtnAlterarActionPerformed
 
     private void jBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelarActionPerformed
         // TODO add your handling code here:
-        Util.habilitar(true, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
-        Util.habilitar(false, jTxtNumPedido_tto, jFmtData_tto, jCboFornecedor_tto, jCboFuncionario_tto, jTxtTotal_tto,
-                jBtnIncluirLateral, jBtnAlterarLateral, jBtnExcluirLateral,
-                jBtnConfirmar, jBtnCancelar);
-        Util.limparCampos();
+        comprasProdutosControle.setList(new ArrayList());
         Util.mensagem("Cancelamento concluído");
-        setVisible(false);
+        Util.limparCampos(jTxtNumPedido_tto, jFmtData_tto, jCboFornecedor_tto, jCboFuncionario_tto, jTxtTotal_tto);
+        Util.habilitar(true, jBtnIncluir, jBtnPesquisar);
+        Util.habilitar(false, jBtnIncluirLateral, jBtnAlterarLateral, jBtnExcluirLateral,
+                jBtnConfirmar, jBtnCancelar, jBtnAlterar, jBtnExcluir,
+                jTxtNumPedido_tto, jFmtData_tto, jCboFornecedor_tto, jCboFuncionario_tto,
+                jTxtTotal_tto);
     }//GEN-LAST:event_jBtnCancelarActionPerformed
-
-    private void jBtnIncluirLateralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluirLateralActionPerformed
-        // TODO add your handling code here:
-        jDlgComprasProdutos.setTitle("Inclusão");
-        jDlgComprasProdutos.setVisible(true);
-
-
-    }//GEN-LAST:event_jBtnIncluirLateralActionPerformed
-
-    private void jCboFornecedor_ttoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCboFornecedor_ttoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCboFornecedor_ttoActionPerformed
 
     private void jBtnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluirActionPerformed
         // TODO add your handling code here:
-        //incluindo = true;
-        Util.habilitar(true, jTxtNumPedido_tto, jFmtData_tto, jCboFornecedor_tto, jCboFuncionario_tto, jTxtTotal_tto,
-                jBtnIncluirLateral, jBtnAlterarLateral, jBtnExcluirLateral,
-                jBtnConfirmar, jBtnCancelar);
-        Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+        Util.limparCampos(jTxtNumPedido_tto, jFmtData_tto, jCboFornecedor_tto, jCboFuncionario_tto, jTxtTotal_tto);
+        comprasProdutosControle.setList(new ArrayList());
+        jTxtNumPedido_tto.grabFocus();
+        incluindo = true;
+        compras = new ComprasTto();
 
+        Util.habilitar(true, jBtnIncluirLateral, jBtnAlterarLateral, jBtnExcluirLateral, jBtnConfirmar, jBtnCancelar,
+                jTxtNumPedido_tto, jFmtData_tto, jCboFornecedor_tto, jCboFuncionario_tto, jTxtTotal_tto);
+        Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
     }//GEN-LAST:event_jBtnIncluirActionPerformed
 
     private void jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirActionPerformed
         // TODO add your handling code here:
-        /*
-        if (Util.perguntar("Deseja excluir o funcionário?") == true) {
-            int sel = jTable1.getSelectedRow();
-            comprasTto = comprasControle.getBean(sel);
-            compras_DAO.delete(comprasTto);
-
-            List lista = compras_DAO.listAll();
-            comprasControle.setList(lista);
+        if (compras != null) {
+            if (Util.perguntar("Deseja excluir o pedido?") == true) {
+                ComprasProdutos_DAO comprasProdutos_DAO = new ComprasProdutos_DAO();
+                ComprasProdutosTto comprasProdutosTto;
+                for (int linha = 0; linha < jTable1.getRowCount(); linha++) {
+                    comprasProdutosTto = comprasProdutosControle.getBean(linha);
+                    comprasProdutos_DAO.delete(comprasProdutosTto);
+                }
+                compras_DAO.delete(compras);
+            }
         } else {
-            Util.mensagem("Exclusão cancelada");
+            Util.mensagem("Deve ser realizada uma pesquisa antes");
         }
-         */
+        comprasProdutosControle.setList(new ArrayList());
+
+        Util.limparCampos(jTxtNumPedido_tto, jFmtData_tto, jCboFornecedor_tto, jCboFuncionario_tto, jTxtTotal_tto);
+
+        Util.habilitar(false, jTxtNumPedido_tto, jFmtData_tto, jCboFornecedor_tto, jCboFuncionario_tto, jTxtTotal_tto,
+                jBtnAlterar, jBtnExcluir,
+                jBtnConfirmar, jBtnCancelar, jBtnIncluirLateral, jBtnAlterarLateral, jBtnExcluirLateral);
+        Util.habilitar(true, jBtnIncluir, jBtnPesquisar);
     }//GEN-LAST:event_jBtnExcluirActionPerformed
 
     private void jBtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPesquisarActionPerformed
         // TODO add your handling code here:
         JDlgComprasPesquisa jDlgComprasPesquisa = new JDlgComprasPesquisa(null, true);
+        jDlgComprasPesquisa.setTelaAnterior(this);
         jDlgComprasPesquisa.setVisible(true);
 
+        Util.habilitar(true, jBtnAlterar, jBtnExcluir);
     }//GEN-LAST:event_jBtnPesquisarActionPerformed
 
     private void jBtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmarActionPerformed
-        // TODO add your handling code here:
-        /*
-        comprasTto = viewBean();
+        compras = viewBean();
         if (incluindo == true) {
-            compras_DAO.insert(comprasTto);
+            compras_DAO.insert(compras);
+            ComprasProdutos_DAO comprasProdutos_DAO = new ComprasProdutos_DAO();
+            ComprasProdutosTto comprasProdutosTto;
+            for (int linha = 0; linha < jTable1.getRowCount(); linha++) {
+                comprasProdutosTto = comprasProdutosControle.getBean(linha);
+                comprasProdutosTto.setComprasTto(compras);
+                comprasProdutos_DAO.insert(comprasProdutosTto);
+            }
         } else {
-            compras_DAO.update(comprasTto);
+            compras_DAO.update(compras);
+            //remover todos os pedidos produtos deste pedido
+
+            //incluir todos os pedidosProduto que estao no jtable
+            ComprasProdutos_DAO comprasProdutos_DAO = new ComprasProdutos_DAO();
+            ComprasProdutosTto comprasProdutosTto;
+            for (int linha = 0; linha < jTable1.getRowCount(); linha++) {
+                comprasProdutosTto = comprasProdutosControle.getBean(linha);
+                comprasProdutosTto.setComprasTto(compras);
+                comprasProdutos_DAO.insert(comprasProdutosTto);
+            }
         }
-
-        Util.habilitar(true, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
-
-        */
+        Util.habilitar(false, jTxtNumPedido_tto, jFmtData_tto, jCboFornecedor_tto, jCboFuncionario_tto, jTxtTotal_tto,
+                jBtnAlterar, jBtnExcluir,
+                jBtnConfirmar, jBtnCancelar, jBtnIncluirLateral, jBtnAlterarLateral, jBtnExcluirLateral);
+        Util.habilitar(true, jBtnIncluir, jBtnPesquisar);
+        comprasProdutosControle.setList(new ArrayList());
     }//GEN-LAST:event_jBtnConfirmarActionPerformed
+
+    private void jBtnExcluirLateralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirLateralActionPerformed
+        // TODO add your handling code here:
+        if (getSelectedRowProd() == -1) {
+            Util.mensagem("Nenhuma linha selecionada");
+        } else {
+            if (Util.perguntar("Deseja excluir o produto?") == true) {
+                comprasProdutosControle.removeBean(getSelectedRowProd());
+            }
+        }
+    }//GEN-LAST:event_jBtnExcluirLateralActionPerformed
+
+    private void jBtnAlterarLateralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarLateralActionPerformed
+        // TODO add your handling code here:
+        jDlgComprasProdutos.setTitle("Alteração");
+        jDlgComprasProdutos.setTelaAnterior(this);
+        int linSel = jTable1.getSelectedRow();
+        ComprasProdutosTto comprasProdutosTto = (ComprasProdutosTto) comprasProdutosControle.getBean(linSel);
+        jDlgComprasProdutos.beanView(comprasProdutosTto);
+        jDlgComprasProdutos.setVisible(true);
+    }//GEN-LAST:event_jBtnAlterarLateralActionPerformed
+
+    private void jBtnIncluirLateralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluirLateralActionPerformed
+        // TODO add your handling code here:
+        jDlgComprasProdutos.setTitle("Inclusão de produtos");
+        jDlgComprasProdutos.setTelaAnterior(this);
+        jDlgComprasProdutos.setVisible(true);
+    }//GEN-LAST:event_jBtnIncluirLateralActionPerformed
 
     /**
      * @param args the command line arguments
@@ -454,8 +556,8 @@ public class JDlgCompras extends javax.swing.JDialog {
     private javax.swing.JButton jBtnIncluir;
     private javax.swing.JButton jBtnIncluirLateral;
     private javax.swing.JButton jBtnPesquisar;
-    private javax.swing.JComboBox<String> jCboFornecedor_tto;
-    private javax.swing.JComboBox<String> jCboFuncionario_tto;
+    private javax.swing.JComboBox<FornecedoresTto> jCboFornecedor_tto;
+    private javax.swing.JComboBox<FuncionariosTto> jCboFuncionario_tto;
     private javax.swing.JFormattedTextField jFmtData_tto;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

@@ -102,7 +102,16 @@ public class FornecedoresTto  implements java.io.Serializable {
     public String toString(){
         return getNomeTto();
     }
-    
+         @Override
+    public boolean equals (Object object){
+    if(object instanceof FornecedoresTto){
+        FornecedoresTto fornecedoresTto = (FornecedoresTto) object;
+    if(this.getIdfornecedoresTto()==fornecedoresTto.getIdfornecedoresTto()){
+    return true;
+    }
+    }
+    return false;
+}
 }
 
 

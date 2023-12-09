@@ -47,12 +47,9 @@ public class ProdutosControle extends AbstractTableModel{
             return produtos.getDescricaoTto();
         }
         if (columnIndex == 3 ) {
-            return produtos.getValorCompraTto();
+            return produtos.getValorUnitarioTto();
         }
         if (columnIndex == 4 ) {
-            return produtos.getValorVendaTto();
-        }
-        if (columnIndex == 5 ) {
             return produtos.getCategoriaTto();
         }
          return "";
@@ -69,12 +66,9 @@ public class ProdutosControle extends AbstractTableModel{
             return "descricao";
         }
         if (column == 3 ) {
-            return "valorCompra";
+            return "valorUnitario";
         }
-        if (column == 4 ) {
-            return "valorVenda";
-        }
-         if (column == 5 ) {
+         if (column == 4 ) {
             return "categoria";
         }
         return "";

@@ -6,17 +6,22 @@
 package view;
 
 import bean.ComprasProdutosTto;
+import bean.ProdutosTto;
 import dao.ComprasProdutos_DAO;
+import dao.Produtos_DAO;
+import java.util.List;
 import tools.Util;
 
 /**
  *
- * @author u10475493109
+ * @author tate
  */
 public class JDlgComprasProdutos extends javax.swing.JDialog {
-    ComprasProdutosTto comprasProdutosTto;
+
+    JDlgCompras jDlgCompras;
+    Produtos_DAO produtos_DAO;
     ComprasProdutos_DAO comprasProdutos_DAO;
-    
+
     /**
      * Creates new form JDlgComprasProdutos
      */
@@ -24,18 +29,26 @@ public class JDlgComprasProdutos extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setTitle("Inclusão de produtos");
-        setLocationRelativeTo(null);      
-        
+        setLocationRelativeTo(null);
+        produtos_DAO = new Produtos_DAO();
+        List lista = (List) produtos_DAO.listAll();
+
+        Util.habilitar(false, jTxtTotal_tto);
+
+        for (int i = 0; i < lista.size(); i++) {
+            jCboProdutos.addItem((ProdutosTto) lista.get(i));
+        }
+
     }
-    
-    public ComprasProdutosTto viewBean(){
-    comprasProdutosTto = new ComprasProdutosTto();
-    
-    return comprasProdutosTto;
+
+    public void setTelaAnterior(JDlgCompras jDlgCompras) {
+        this.jDlgCompras = jDlgCompras;
     }
-    
-    public void beanView(ComprasProdutosTto comprasProdutosTto){
-    
+
+    public void beanView(ComprasProdutosTto comprasProdutosTto) {
+        jCboProdutos.setSelectedItem(comprasProdutosTto.getComprasTto());
+        jTxtQuantidade_tto.setText(Integer.toString(comprasProdutosTto.getQuantidadeTto()));
+        jTxtValorUnitario_tto.setText(Double.toString(comprasProdutosTto.getValorUnitarioTto()));
     }
 
     /**
@@ -102,11 +115,32 @@ public class JDlgComprasProdutos extends javax.swing.JDialog {
 
         jLabel1.setText("Total");
 
+        jTxtValorUnitario_tto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTxtValorUnitario_ttoKeyReleased(evt);
+            }
+        });
+
         jLabel2.setText("Valor unitário");
+
+        jTxtQuantidade_tto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTxtQuantidade_ttoActionPerformed(evt);
+            }
+        });
+        jTxtQuantidade_tto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTxtQuantidade_ttoKeyReleased(evt);
+            }
+        });
 
         jLabel3.setText("Quantidade");
 
-        jCboProdutos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jCboProdutos.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jCboProdutosItemStateChanged(evt);
+            }
+        });
 
         jLabel4.setText("Produtos");
 
@@ -172,9 +206,60 @@ public class JDlgComprasProdutos extends javax.swing.JDialog {
 
     private void jBtnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnOkActionPerformed
         // TODO add your handling code here:
-        
+        ComprasProdutosTto comprasProdutosTto = new ComprasProdutosTto();
+        comprasProdutosTto.setProdutosTto((ProdutosTto) jCboProdutos.getSelectedItem());
+        comprasProdutosTto.setValorUnitarioTto(Util.strInt(jTxtQuantidade_tto.getText()));;
+        comprasProdutosTto.setValorUnitarioTto(Util.strDouble(jTxtValorUnitario_tto.getText()));
+
+        if (getTitle().toUpperCase().substring(0, 1).equals("I")) {
+            jDlgCompras.comprasProdutosControle.addBean(comprasProdutosTto);
+        } else {
+            jDlgCompras.comprasProdutosControle.updateBean(jDlgCompras.getSelectedRowProd(), comprasProdutosTto);
+        }
+
         setVisible(false);
     }//GEN-LAST:event_jBtnOkActionPerformed
+
+    private void jTxtQuantidade_ttoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtQuantidade_ttoActionPerformed
+        // TODO add your handling code here:
+        if (jTxtQuantidade_tto.getText().isEmpty() == false) {
+            double unitario = Util.strDouble(jTxtValorUnitario_tto.getText());
+            double quantidade = Util.strDouble(jTxtQuantidade_tto.getText());
+            jTxtTotal_tto.setText(String.valueOf(quantidade * unitario));
+        } else {
+            jTxtTotal_tto.setText("0");
+        }
+    }//GEN-LAST:event_jTxtQuantidade_ttoActionPerformed
+
+    private void jCboProdutosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCboProdutosItemStateChanged
+        // TODO add your handling code here:
+        jTxtQuantidade_tto.setText("1");
+        ProdutosTto produtosTto = (ProdutosTto) jCboProdutos.getSelectedItem();
+        jTxtValorUnitario_tto.setText(Util.doubleStr(produtosTto.getValorUnitarioTto()));
+        jTxtTotal_tto.setText(jTxtValorUnitario_tto.getText());
+    }//GEN-LAST:event_jCboProdutosItemStateChanged
+
+    private void jTxtQuantidade_ttoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTxtQuantidade_ttoKeyReleased
+        // TODO add your handling code here:
+        if (jTxtQuantidade_tto.getText().isEmpty() == false) {
+            double unitario = Util.strDouble(jTxtValorUnitario_tto.getText());
+            double quantidade = Util.strDouble(jTxtQuantidade_tto.getText());
+            jTxtTotal_tto.setText(Util.doubleStr(quantidade * unitario));
+        } else {
+            jTxtTotal_tto.setText("0");
+        }
+    }//GEN-LAST:event_jTxtQuantidade_ttoKeyReleased
+
+    private void jTxtValorUnitario_ttoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTxtValorUnitario_ttoKeyReleased
+        // TODO add your handling code here:
+        if (jTxtValorUnitario_tto.getText().isEmpty() == false) {
+            double quantidade = Util.strDouble(jTxtQuantidade_tto.getText());
+            double unitario = Util.strDouble(jTxtValorUnitario_tto.getText());
+            jTxtTotal_tto.setText(Util.doubleStr(unitario * quantidade));
+        } else {
+            jTxtTotal_tto.setText("0");
+        }
+    }//GEN-LAST:event_jTxtValorUnitario_ttoKeyReleased
 
     /**
      * @param args the command line arguments
@@ -190,17 +275,26 @@ public class JDlgComprasProdutos extends javax.swing.JDialog {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JDlgComprasProdutos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JDlgComprasProdutos.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JDlgComprasProdutos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JDlgComprasProdutos.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JDlgComprasProdutos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JDlgComprasProdutos.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JDlgComprasProdutos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JDlgComprasProdutos.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
@@ -221,7 +315,7 @@ public class JDlgComprasProdutos extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtnCancelar;
     private javax.swing.JButton jBtnOk;
-    private javax.swing.JComboBox<String> jCboProdutos;
+    private javax.swing.JComboBox<ProdutosTto> jCboProdutos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

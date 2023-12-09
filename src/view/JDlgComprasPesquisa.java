@@ -5,6 +5,9 @@
  */
 package view;
 
+import bean.ComprasTto;
+import dao.Compras_DAO;
+import java.util.List;
 import tools.Util;
 
 /**
@@ -13,14 +16,29 @@ import tools.Util;
  */
 public class JDlgComprasPesquisa extends javax.swing.JDialog {
 
+    JDlgCompras jDlgCompras;
+    Compras_DAO compras_DAO;
+    ComprasControle comprasControle;
+
     /**
      * Creates new form JDlgPedidosPesquisa
      */
     public JDlgComprasPesquisa(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-    }
 
+        comprasControle = new ComprasControle();
+        compras_DAO = new Compras_DAO();
+        List lista = compras_DAO.listAll();
+        comprasControle.setList(lista);
+        jTable1.setModel(comprasControle);
+        setTitle("Registro de Compras");
+        setLocationRelativeTo(null);
+    }
+    
+    public void setTelaAnterior(JDlgCompras jDlgCompras) {
+        this.jDlgCompras = jDlgCompras;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -112,6 +130,9 @@ public class JDlgComprasPesquisa extends javax.swing.JDialog {
 
     private void jBtnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnOkActionPerformed
         // TODO add your handling code here:
+        int rowSel = jTable1.getSelectedRow();
+        ComprasTto compras = comprasControle.getBean(rowSel);
+        jDlgCompras.beanView(compras);
         setVisible(false);
     }//GEN-LAST:event_jBtnOkActionPerformed
 

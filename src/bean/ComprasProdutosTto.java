@@ -4,6 +4,8 @@ package bean;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -22,13 +24,13 @@ public class ComprasProdutosTto  implements java.io.Serializable {
      private int idcomprasProdutosTto;
      private ComprasTto comprasTto;
      private ProdutosTto produtosTto;
-     private String quantidadeTto;
+     private int quantidadeTto;
      private double valorUnitarioTto;
 
     public ComprasProdutosTto() {
     }
 
-    public ComprasProdutosTto(int idcomprasProdutosTto, ComprasTto comprasTto, ProdutosTto produtosTto, String quantidadeTto, double valorUnitarioTto) {
+    public ComprasProdutosTto(int idcomprasProdutosTto, ComprasTto comprasTto, ProdutosTto produtosTto, int quantidadeTto, double valorUnitarioTto) {
        this.idcomprasProdutosTto = idcomprasProdutosTto;
        this.comprasTto = comprasTto;
        this.produtosTto = produtosTto;
@@ -36,7 +38,7 @@ public class ComprasProdutosTto  implements java.io.Serializable {
        this.valorUnitarioTto = valorUnitarioTto;
     }
    
-     @Id 
+   @Id @GeneratedValue(strategy=IDENTITY)
 
     
     @Column(name="idcompras_produtos_tto", unique=true, nullable=false)
@@ -48,7 +50,7 @@ public class ComprasProdutosTto  implements java.io.Serializable {
         this.idcomprasProdutosTto = idcomprasProdutosTto;
     }
 
-@ManyToOne(fetch=FetchType.LAZY)
+@ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="compra_tto", nullable=false)
     public ComprasTto getComprasTto() {
         return this.comprasTto;
@@ -58,7 +60,7 @@ public class ComprasProdutosTto  implements java.io.Serializable {
         this.comprasTto = comprasTto;
     }
 
-@ManyToOne(fetch=FetchType.LAZY)
+@ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="produto_tto", nullable=false)
     public ProdutosTto getProdutosTto() {
         return this.produtosTto;
@@ -70,11 +72,11 @@ public class ComprasProdutosTto  implements java.io.Serializable {
 
     
     @Column(name="quantidade_tto", nullable=false, length=45)
-    public String getQuantidadeTto() {
+    public int getQuantidadeTto() {
         return this.quantidadeTto;
     }
     
-    public void setQuantidadeTto(String quantidadeTto) {
+    public void setQuantidadeTto(int quantidadeTto) {
         this.quantidadeTto = quantidadeTto;
     }
 
@@ -87,9 +89,6 @@ public class ComprasProdutosTto  implements java.io.Serializable {
     public void setValorUnitarioTto(double valorUnitarioTto) {
         this.valorUnitarioTto = valorUnitarioTto;
     }
-
-
-
 
 }
 

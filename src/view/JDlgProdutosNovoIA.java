@@ -17,7 +17,7 @@ public class JDlgProdutosNovoIA extends javax.swing.JDialog {
 
     ProdutosTto produtosTto;
     Produtos_DAO produtos_DAO;
-    
+
     /**
      * Creates new form JDlgProdutosNovoIA
      */
@@ -28,28 +28,26 @@ public class JDlgProdutosNovoIA extends javax.swing.JDialog {
         setTitle("Cadastro de Produtos");
     }
 
-    public ProdutosTto viewBean(){
+    public ProdutosTto viewBean() {
         produtosTto = new ProdutosTto();
         produtosTto.setIdprodutosTto(Util.strInt(codigo_tto.getText()));
         produtosTto.setNomeTto(nome_tto.getText());
         produtosTto.setDescricaoTto(descricao_tto.getText());
-        produtosTto.setValorCompraTto(Util.strDouble(valorCompra_tto.getText()));
-        produtosTto.setValorVendaTto(Util.strDouble(valorVenda_tto.getText()));
+        produtosTto.setValorUnitarioTto(Util.strDouble(valorUnitario_tto.getText()));
         produtosTto.setCategoriaTto(categoria_tto.getSelectedIndex());
-        
+
         return produtosTto;
     }
-    
-    public void beanView(ProdutosTto produtosTto){
-        
+
+    public void beanView(ProdutosTto produtosTto) {
+
         codigo_tto.setText(Util.intStr(produtosTto.getIdprodutosTto()));
         nome_tto.setText(produtosTto.getNomeTto());
         descricao_tto.setText(produtosTto.getDescricaoTto());
-        valorCompra_tto.setText(Util.doubleStr(produtosTto.getValorCompraTto()));
-        valorVenda_tto.setText(Util.doubleStr(produtosTto.getValorVendaTto()));
+        valorUnitario_tto.setText(Util.doubleStr(produtosTto.getValorUnitarioTto()));
         categoria_tto.setSelectedIndex(produtosTto.getCategoriaTto());
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -61,10 +59,8 @@ public class JDlgProdutosNovoIA extends javax.swing.JDialog {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         codigo_tto = new javax.swing.JTextField();
-        valorCompra_tto = new javax.swing.JTextField();
-        valorVenda_tto = new javax.swing.JTextField();
+        valorUnitario_tto = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         nome_tto = new javax.swing.JTextField();
         categoria_tto = new javax.swing.JComboBox<>();
@@ -79,13 +75,11 @@ public class JDlgProdutosNovoIA extends javax.swing.JDialog {
 
         jLabel1.setText("Código");
 
-        jLabel2.setText("Valor Compra");
-
-        jLabel3.setText("Valor da Venda");
+        jLabel2.setText("Valor Unitário");
 
         jLabel4.setText("Nome");
 
-        categoria_tto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        categoria_tto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Console", "Jogo", "Pelúcia", "Action Figure", "Setup Gamer" }));
 
         jLabel5.setText("Descrição");
 
@@ -160,12 +154,8 @@ public class JDlgProdutosNovoIA extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
-                            .addComponent(valorCompra_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(83, 83, 83)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(valorVenda_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
-                        .addGap(61, 61, 61))))
+                            .addComponent(valorUnitario_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(237, 237, 237))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -173,13 +163,11 @@ public class JDlgProdutosNovoIA extends javax.swing.JDialog {
                 .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3))
+                    .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(codigo_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(valorCompra_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(valorVenda_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(valorUnitario_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(34, 34, 34)
                 .addComponent(jLabel4)
                 .addGap(18, 18, 18)
@@ -208,13 +196,18 @@ public class JDlgProdutosNovoIA extends javax.swing.JDialog {
 
     private void JBtnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBtnOkActionPerformed
         // TODO add your handling code here:
+        ProdutosTto produtosTto = viewBean();
+        Produtos_DAO produtos_DAO = new Produtos_DAO();
+        if (getTitle().toUpperCase().substring(0, 1).equals("I")) {
+            produtos_DAO.insert(produtosTto);
+        } else {
+            produtos_DAO.update(produtosTto);
+        }
+        
         setVisible(false);
-        produtosTto = viewBean();
-        produtos_DAO = new Produtos_DAO();
-        produtos_DAO.insert(produtosTto);
-        
-        Util.limparCampos();
-        
+
+        Util.limparCampos(codigo_tto, nome_tto, descricao_tto, valorUnitario_tto, categoria_tto);
+
     }//GEN-LAST:event_JBtnOkActionPerformed
 
     /**
@@ -268,13 +261,11 @@ public class JDlgProdutosNovoIA extends javax.swing.JDialog {
     private javax.swing.JTextField descricao_tto;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField nome_tto;
-    private javax.swing.JTextField valorCompra_tto;
-    private javax.swing.JTextField valorVenda_tto;
+    private javax.swing.JTextField valorUnitario_tto;
     // End of variables declaration//GEN-END:variables
 }

@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+//OKAY
 package query;
 
 import dao.Compras_DAO;
@@ -81,7 +82,7 @@ public class JDlgConsultaCompras extends javax.swing.JDialog {
 
         jLabel1.setText("Data");
 
-        jLabel2.setText("Total");
+        jLabel2.setText("Total (maior que)");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -142,7 +143,7 @@ public class JDlgConsultaCompras extends javax.swing.JDialog {
         } else {
             if (!jFmtConsultaData_tto.getText().equals("") && !jFmtConsultaTotal_tto.getText().equals("")) {
                 Double totalTto = Util.strDouble(jFmtConsultaTotal_tto.getText());
-                List lista = compras_DAO.listNomeTotal(jFmtConsultaData_tto.getText(), totalTto);
+                List lista = compras_DAO.listDataTotal(Util.strDate(jFmtConsultaData_tto.getText()), totalTto);
                 comprasControle.setList(lista);
             } else {
                 if (!jFmtConsultaData_tto.getText().equals("")) {

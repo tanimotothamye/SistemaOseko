@@ -14,13 +14,15 @@ import java.util.List;
  * @author tate
  */
 public class JDlgFornecedoresPesquisa extends javax.swing.JDialog {
- private JDlgFornecedores jDlgFornecedores;
+
+    private JDlgFornecedores jDlgFornecedores;
     private FornecedoresControle fornecedoresControle;
+
     /**
      * Creates new form JDlgFornecedoresPesquisa
      */
     public JDlgFornecedoresPesquisa(java.awt.Frame parent, boolean modal) {
- super(parent, modal);
+        super(parent, modal);
         initComponents();
         fornecedoresControle = new FornecedoresControle();
         Fornecedores_DAO fornecedores_DAO = new Fornecedores_DAO();
@@ -112,7 +114,7 @@ public class JDlgFornecedoresPesquisa extends javax.swing.JDialog {
 
     private void jBtnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnOkActionPerformed
         // TODO add your handling code here:
-        int  rowSel = jTable1.getSelectedRow();
+        int rowSel = jTable1.getSelectedRow();
         FornecedoresTto fornecedores = fornecedoresControle.getBean(rowSel);
         jDlgFornecedores.beanView(fornecedores);
         setVisible(false);
@@ -121,6 +123,16 @@ public class JDlgFornecedoresPesquisa extends javax.swing.JDialog {
     private void jBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelarActionPerformed
         // TODO add your handling code here:
         setVisible(false);
+        // Fecha a tela anterior (se houver alguma)
+        if (jDlgFornecedores != null && jDlgFornecedores.isVisible()) {
+            jDlgFornecedores.dispose();
+        }
+
+        // Abre uma nova instância de JDlgFornecedores para ficar com a lógica dos botões correta
+        jDlgFornecedores = new JDlgFornecedores(null, true);
+        jDlgFornecedores.setVisible(true);
+
+
     }//GEN-LAST:event_jBtnCancelarActionPerformed
 
     /**

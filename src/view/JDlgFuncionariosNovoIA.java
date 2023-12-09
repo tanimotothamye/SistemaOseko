@@ -222,7 +222,7 @@ public class JDlgFuncionariosNovoIA extends javax.swing.JDialog {
 
         jLabel14.setText("Código");
 
-        sexo_tto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        sexo_tto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Feminino", "Masculino", "Outro" }));
 
         jLabel15.setText("Sexo");
 
@@ -357,8 +357,18 @@ public class JDlgFuncionariosNovoIA extends javax.swing.JDialog {
 
     private void jBtnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnOkActionPerformed
 
-        funcionariosTto = viewBean();
-        funcionarios_DAO.insert(funcionariosTto);
+        FuncionariosTto funcionariosTto = viewBean();
+        Funcionarios_DAO funcionarios_DAO = new Funcionarios_DAO();
+        if (getTitle().toUpperCase().substring(0, 1).equals("I")) {
+            funcionarios_DAO.insert(funcionariosTto);
+        } else {
+            funcionarios_DAO.update(funcionariosTto);
+        }
+
+        setVisible(false);
+        
+        Util.limparCampos(codigo_tto, nome_tto, cpf_tto, email_tto, telefone_tto, dataNascimento_tto,
+            celular_tto, bairro_tto, cidade_tto, pais_tto, cep_tto, endereco_tto, sexo_tto, carteiraTrabalho_tto, ativo_tto );
         
         setVisible(false);
     }//GEN-LAST:event_jBtnOkActionPerformed

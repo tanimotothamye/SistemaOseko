@@ -123,6 +123,14 @@ public class JDlgUsuariosPesquisa extends javax.swing.JDialog {
     private void jBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelarActionPerformed
         // TODO add your handling code here:
         setVisible(false);
+        // Fecha a tela anterior (se houver alguma)
+        if (jDlgUsuarios != null && jDlgUsuarios.isVisible()) {
+            jDlgUsuarios.dispose();
+        }
+
+        // Abre uma nova instância de JDlgUsuarios para ficar com a lógica dos botões correta
+        jDlgUsuarios = new JDlgUsuarios(null, true);
+        jDlgUsuarios.setVisible(true);
     }//GEN-LAST:event_jBtnCancelarActionPerformed
 
     /**

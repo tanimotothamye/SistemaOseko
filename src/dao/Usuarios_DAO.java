@@ -14,7 +14,7 @@ import org.hibernate.criterion.Restrictions;
 
 /**
  *
- * @author rafae
+ * @author tate
  */
 public class Usuarios_DAO extends DAO_Abstract {
 

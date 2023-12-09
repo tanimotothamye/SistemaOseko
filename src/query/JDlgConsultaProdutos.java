@@ -3,6 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
+//OKAY
 package query;
 
 import bean.ProdutosTto;
@@ -49,7 +51,7 @@ public class JDlgConsultaProdutos extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
-        jFmtConsultaValorCompra_tto = new javax.swing.JFormattedTextField();
+        jFmtValorUnitario_tto = new javax.swing.JFormattedTextField();
         jLabel2 = new javax.swing.JLabel();
         jTxtConsultaNome_tto = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
@@ -72,7 +74,7 @@ public class JDlgConsultaProdutos extends javax.swing.JDialog {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jLabel2.setText("Valor da Compra");
+        jLabel2.setText("Valor Unitário (maior que)");
 
         jLabel1.setText("Nome");
 
@@ -92,14 +94,14 @@ public class JDlgConsultaProdutos extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(jTxtConsultaNome_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
-                        .addContainerGap(287, Short.MAX_VALUE))
+                        .addContainerGap(273, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jFmtConsultaValorCompra_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                        .addComponent(jFmtValorUnitario_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
                         .addComponent(jBtnConsulta_tto)
                         .addGap(27, 27, 27))))
         );
@@ -113,7 +115,7 @@ public class JDlgConsultaProdutos extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTxtConsultaNome_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jFmtConsultaValorCompra_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jFmtValorUnitario_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtnConsulta_tto, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(212, 212, 212))
         );
@@ -138,22 +140,22 @@ public class JDlgConsultaProdutos extends javax.swing.JDialog {
 
     private void jBtnConsulta_ttoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConsulta_ttoActionPerformed
         // TODO add your handling code here:
-if (jTxtConsultaNome_tto.getText().equals("") && jFmtConsultaValorCompra_tto.getText().equals("")) {
+if (jTxtConsultaNome_tto.getText().equals("") && jFmtValorUnitario_tto.getText().equals("")) {
             List lista = produtos_DAO.listAll();
             produtosControle.setList(lista);
         } else {
-            if (!jTxtConsultaNome_tto.getText().equals("") && !jFmtConsultaValorCompra_tto.getText().equals("")) {
-                Double valorCompraTto = Util.strDouble(jFmtConsultaValorCompra_tto.getText());
-                List lista = produtos_DAO.listNomeValorCompra(jTxtConsultaNome_tto.getText(), valorCompraTto);
+            if (!jTxtConsultaNome_tto.getText().equals("") && !jFmtValorUnitario_tto.getText().equals("")) {
+                Double valorUnitarioTto = Util.strDouble(jFmtValorUnitario_tto.getText());
+                List lista = produtos_DAO.listNomeValorUnitario(jTxtConsultaNome_tto.getText(), valorUnitarioTto);
                 produtosControle.setList(lista);
             } else {
                 if (!jTxtConsultaNome_tto.getText().equals("")) {
                     List lista = produtos_DAO.listNomeTto(jTxtConsultaNome_tto.getText());
                     produtosControle.setList(lista);
                 }
-                if (!jFmtConsultaValorCompra_tto.getText().equals("")) {
-                    Double valorCompraTto = Util.strDouble(jFmtConsultaValorCompra_tto.getText());
-                    List lista = produtos_DAO.listValorCompraTto(valorCompraTto);
+                if (!jFmtValorUnitario_tto.getText().equals("")) {
+                    Double valorUnitarioTto = Util.strDouble(jFmtValorUnitario_tto.getText());
+                    List lista = produtos_DAO.listValorUnitarioTto(valorUnitarioTto);
                     produtosControle.setList(lista);
                 }
             }
@@ -212,7 +214,7 @@ if (jTxtConsultaNome_tto.getText().equals("") && jFmtConsultaValorCompra_tto.get
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtnConsulta_tto;
-    private javax.swing.JFormattedTextField jFmtConsultaValorCompra_tto;
+    private javax.swing.JFormattedTextField jFmtValorUnitario_tto;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

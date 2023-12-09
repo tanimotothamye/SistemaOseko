@@ -19,20 +19,18 @@ public class ProdutosTto  implements java.io.Serializable {
      private int idprodutosTto;
      private String nomeTto;
      private String descricaoTto;
-     private double valorCompraTto;
-     private double valorVendaTto;
+     private double valorUnitarioTto;
      private int categoriaTto;
 
     public ProdutosTto() {
     }
 
 	
-    public ProdutosTto(int idprodutosTto, String nomeTto, String descricaoTto, double valorCompraTto, double valorVendaTto, int categoriaTto) {
+    public ProdutosTto(int idprodutosTto, String nomeTto, String descricaoTto, double valorUnitarioTto, int categoriaTto) {
         this.idprodutosTto = idprodutosTto;
         this.nomeTto = nomeTto;
         this.descricaoTto = descricaoTto;
-        this.valorCompraTto = valorCompraTto;
-        this.valorVendaTto = valorVendaTto;
+        this.valorUnitarioTto = valorUnitarioTto;
         this.categoriaTto = categoriaTto;
     }
    
@@ -69,25 +67,14 @@ public class ProdutosTto  implements java.io.Serializable {
     }
 
     
-    @Column(name="valorCompra_tto", nullable=false, precision=10)
-    public double getValorCompraTto() {
-        return this.valorCompraTto;
+    @Column(name="valorUnitario_tto", nullable=false, precision=10)
+    public double getValorUnitarioTto() {
+        return this.valorUnitarioTto;
     }
     
-    public void setValorCompraTto(double valorCompraTto) {
-        this.valorCompraTto = valorCompraTto;
+    public void setValorUnitarioTto(double valorUnitarioTto) {
+        this.valorUnitarioTto = valorUnitarioTto;
     }
-
-    
-    @Column(name="valorVenda_tto", nullable=false, precision=10)
-    public double getValorVendaTto() {
-        return this.valorVendaTto;
-    }
-    
-    public void setValorVendaTto(double valorVendaTto) {
-        this.valorVendaTto = valorVendaTto;
-    }
-
     
     @Column(name="categoria_tto", nullable=false, length=45)
     public int getCategoriaTto() {
@@ -97,6 +84,20 @@ public class ProdutosTto  implements java.io.Serializable {
     public void setCategoriaTto(int categoriaTto) {
         this.categoriaTto = categoriaTto;
     }
+        @Override
+    public String toString(){
+        return getNomeTto();
+    }
+         @Override
+    public boolean equals (Object object){
+    if(object instanceof ProdutosTto){
+        ProdutosTto produtosTto = (ProdutosTto) object;
+    if(this.getIdprodutosTto()==produtosTto.getIdprodutosTto()){
+    return true;
+    }
+    }
+    return false;
+}
 }
 
 

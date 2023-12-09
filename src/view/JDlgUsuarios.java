@@ -44,9 +44,9 @@ public class JDlgUsuarios extends javax.swing.JDialog {
 
         Util.habilitar(false, idusuarios_tto, dataNascimento_tto, nome_tto,
                 nickname_tto, senha_tto, nivel_tto, ativo_tto, cpf_tto,
-                jBtnCancelar, jBtnConfirmar);
+                jBtnCancelar, jBtnConfirmar, jBtnExcluir, jBtnAlterar);
         Util.habilitar(true, jBtnPesquisar,
-                jBtnIncluir, jBtnExcluir, jBtnAlterar);
+                jBtnIncluir);
 
         try {
             mascaraCPF = new MaskFormatter("###.###.###-##");
@@ -377,9 +377,11 @@ public class JDlgUsuarios extends javax.swing.JDialog {
         Util.limparCampos(idusuarios_tto, dataNascimento_tto, nome_tto, nickname_tto, senha_tto, nivel_tto, ativo_tto, cpf_tto, jBtnIncluir,
                 jBtnCancelar, jBtnExcluir, jBtnPesquisar, jBtnConfirmar, jBtnAlterar);
 
-        Util.habilitar(false, idusuarios_tto, dataNascimento_tto, nome_tto, nickname_tto, senha_tto, nivel_tto, ativo_tto, cpf_tto,
-                jBtnCancelar, jBtnConfirmar);
-        Util.habilitar(true, jBtnIncluir, jBtnPesquisar, jBtnExcluir, jBtnAlterar);
+        Util.habilitar(false, idusuarios_tto, dataNascimento_tto, nome_tto,
+                nickname_tto, senha_tto, nivel_tto, ativo_tto, cpf_tto,
+                jBtnCancelar, jBtnConfirmar, jBtnExcluir, jBtnAlterar);
+        Util.habilitar(true, jBtnPesquisar,
+                jBtnIncluir);
     }//GEN-LAST:event_jBtnConfirmarActionPerformed
 
     private void jBtnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluirActionPerformed
@@ -395,8 +397,9 @@ public class JDlgUsuarios extends javax.swing.JDialog {
 
     private void jBtnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarActionPerformed
         // TODO add your handling code here:
-        Util.habilitar(true, idusuarios_tto, dataNascimento_tto, nome_tto, nickname_tto, senha_tto, nivel_tto, ativo_tto, cpf_tto, jBtnIncluir,
-                jBtnCancelar, jBtnExcluir, jBtnPesquisar, jBtnConfirmar, jBtnAlterar);
+        Util.habilitar(true, idusuarios_tto, dataNascimento_tto, nome_tto, nickname_tto, senha_tto, nivel_tto, ativo_tto, cpf_tto,
+                jBtnCancelar, jBtnConfirmar);
+        Util.habilitar(false, jBtnIncluir, jBtnPesquisar, jBtnExcluir, jBtnAlterar);
         incluindo = false;
     }//GEN-LAST:event_jBtnAlterarActionPerformed
 
@@ -411,16 +414,20 @@ public class JDlgUsuarios extends javax.swing.JDialog {
         }
         Util.limparCampos(idusuarios_tto, dataNascimento_tto, nome_tto, nickname_tto, senha_tto, nivel_tto, ativo_tto, cpf_tto, jBtnIncluir,
                 jBtnCancelar, jBtnExcluir, jBtnPesquisar, jBtnConfirmar, jBtnAlterar);
-
+        Util.habilitar(false, idusuarios_tto, dataNascimento_tto, nome_tto,
+                nickname_tto, senha_tto, nivel_tto, ativo_tto, cpf_tto,
+                jBtnCancelar, jBtnConfirmar, jBtnExcluir, jBtnAlterar);
+        Util.habilitar(true, jBtnPesquisar,
+                jBtnIncluir);
     }//GEN-LAST:event_jBtnExcluirActionPerformed
 
     private void jBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelarActionPerformed
         // TODO add your handling code here:
-        Util.limparCampos(idusuarios_tto, dataNascimento_tto, nome_tto, nickname_tto, senha_tto, nivel_tto, ativo_tto, cpf_tto, jBtnIncluir,
-                jBtnCancelar, jBtnExcluir, jBtnPesquisar, jBtnConfirmar, jBtnAlterar);
-
-        Util.habilitar(false, idusuarios_tto, dataNascimento_tto, nome_tto, nickname_tto, senha_tto, nivel_tto, ativo_tto, cpf_tto, jBtnIncluir,
-                jBtnCancelar, jBtnExcluir, jBtnPesquisar, jBtnConfirmar, jBtnAlterar);
+        Util.habilitar(false, idusuarios_tto, dataNascimento_tto, nome_tto,
+                nickname_tto, senha_tto, nivel_tto, ativo_tto, cpf_tto,
+                jBtnCancelar, jBtnConfirmar, jBtnExcluir, jBtnAlterar);
+        Util.habilitar(true, jBtnPesquisar,
+                jBtnIncluir);
         JOptionPane.showMessageDialog(null, "Cancelamento concluído");
     }//GEN-LAST:event_jBtnCancelarActionPerformed
 
@@ -429,8 +436,9 @@ public class JDlgUsuarios extends javax.swing.JDialog {
         JDlgUsuariosPesquisa jDlgUsuariosPesquisa = new JDlgUsuariosPesquisa(null, true);
         jDlgUsuariosPesquisa.setTelaAnterior(this);
         jDlgUsuariosPesquisa.setVisible(true);
-        Util.habilitar(true, idusuarios_tto, dataNascimento_tto, nome_tto, nickname_tto, senha_tto, nivel_tto, ativo_tto, cpf_tto, jBtnIncluir,
-                jBtnCancelar, jBtnExcluir, jBtnPesquisar, jBtnConfirmar, jBtnAlterar);
+        Util.habilitar(true, jBtnAlterar, jBtnExcluir, jBtnCancelar);
+        Util.habilitar(false, idusuarios_tto, dataNascimento_tto, nome_tto, nickname_tto, senha_tto, nivel_tto, ativo_tto, cpf_tto,
+                jBtnIncluir, jBtnPesquisar, jBtnConfirmar);
 
     }//GEN-LAST:event_jBtnPesquisarActionPerformed
 
